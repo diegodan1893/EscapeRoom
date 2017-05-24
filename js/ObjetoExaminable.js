@@ -13,8 +13,10 @@
 
 ObjetoRecogible = function(modelo, funcionInteraccion, objetoActivacion, puntoCamara, juego)
 {
+    // Llamar al super
     ObjetoInteractuable.call(this,modelo,funcionInteraccion, objetoActivacion);
 
+    // Variables
     this.juego = juego;
     this.puntoCamara = puntoCamara;
 
@@ -22,3 +24,16 @@ ObjetoRecogible = function(modelo, funcionInteraccion, objetoActivacion, puntoCa
 
 ObjetoExaminable.prototype = Object.create(ObjetoInteractuable.prototype);
 ObjetoExaminable.prototype.constructor = ObjetoExaminable;
+
+ObjetoExaminable.prototype.interactuar = function(modo, objetoSeleccionado)
+{
+    var resultado = false;
+
+    if(modo == Juego.Modo.INVESTIGANDO){
+        juego.moverCamara(this.puntoCamara); //no existe aún
+    }else if(modo == Juego.Modo.EXAMINANDO){
+        resultado = super.interactuar(modo,objetoSeleccionado);
+    }
+
+    return resultado;
+};
