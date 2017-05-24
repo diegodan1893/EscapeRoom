@@ -12,8 +12,9 @@ Nivel = function(juego)
 	/** Crear las luces */
 	var crearLuces = function(self)
 	{
-		ambientLight = new THREE.AmbientLight(0x7f7f7f);
-		pointLight = new THREE.PointLight(0xffffff, 3, 0, 1);
+		ambientLight = new THREE.AmbientLight(0x282828);
+		pointLight = new THREE.PointLight(0xffffff, 1, 400, 1);
+		pointLight.position.set(50, 50, 50);
 		self.add(ambientLight);
 		self.add(pointLight);
 	};
@@ -29,6 +30,8 @@ Nivel = function(juego)
 		});
 		var paredes = new THREE.Mesh(cajaParedes, materialParedes);
 		paredes.material.side = THREE.BackSide;
+
+		paredes.translateY(50);
 		decoracion.add(paredes);
 
 		return decoracion;

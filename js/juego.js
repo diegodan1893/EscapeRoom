@@ -17,8 +17,8 @@ Juego = function(renderer)
 	var createCamera = function(self, renderer)
 	{
 		camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000000);
-		camera.position.set(0, 33, 1);
-		var look = new THREE.Vector3(0, 0, 0);
+		camera.position.set(0, 50, 1);
+		var look = new THREE.Vector3(10, 50, 1);
 		camera.lookAt(look);
 
 		orbitControls = new THREE.OrbitControls(camera, renderer);
