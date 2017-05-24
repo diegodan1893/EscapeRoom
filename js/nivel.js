@@ -13,22 +13,23 @@ Nivel = function(juego)
 	var crearLuces = function(self)
 	{
 		ambientLight = new THREE.AmbientLight(0x7f7f7f);
+		pointLight = new THREE.PointLight(0xffffff, 3, 0, 1);
 		self.add(ambientLight);
+		self.add(pointLight);
 	};
 
 	/** Crear los objetos decorativos */
 	var crearFondo = function()
 	{
-		var decoracion;
+		var decoracion = new THREE.Object3D();
 
-		decoracion = new THREE.Mesh(
-			new THREE.SphereGeometry(20, 20, 20),
-			new THREE.MeshLambertMaterial({
-				color: 0xffffff,
-				map: this.texturaCargada
-			})
-		);
-		decoracion.translateZ(-30);
+		var cajaParedes = new THREE.BoxGeometry(300, 100, 300);
+		var materialParedes = new THREE.MeshLambertMaterial({
+			color: 0xffffff
+		});
+		var paredes = new THREE.Mesh(cajaParedes, materialParedes);
+		paredes.material.side = THREE.BackSide;
+		decoracion.add(paredes);
 
 		return decoracion;
 	};
