@@ -1,4 +1,3 @@
-/** Clase fachada con la escena */
 Nivel = function(renderer)
 {
 	THREE.Scene.call(this);
