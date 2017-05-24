@@ -17,7 +17,7 @@ ObjetoInteractuable = function(modelo, funcionInteraccion, objetoActivacion)
 	this.intermedio = new THREE.Object3D();
 	this.funcionInteraccion = funcionInteraccion;
     this.objetoActivacion = objetoActivacion;
-    this.estado = null;
+    this.estado = {};
 
     this.intermedio.add(modelo);
     this.add(intermedio);

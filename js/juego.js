@@ -74,3 +74,11 @@ Juego = function(renderer)
 
 Juego.prototype = Object.create(THREE.Scene.prototype);
 Juego.prototype.constructor = Juego;
+
+// Enum de modos o lo que sea
+Juego.Modo =
+{
+	INVESTIGANDO : 0,
+	EXAMINANDO : 1
+
+}
