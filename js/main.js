@@ -46,7 +46,7 @@ $(function(){
 	window.addEventListener("resize", onWindowResize);
 
 	// Crear la escena
-	//scene = new Mundo(renderer.domElement);
+	scene = new Juego(renderer.domElement);
 
 	// El primer render
 	render();

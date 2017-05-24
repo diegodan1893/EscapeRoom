@@ -73,4 +73,4 @@ Juego = function(renderer)
 };
 
 Juego.prototype = Object.create(THREE.Scene.prototype);
-Juego.prototype.constructor = Nivel;
+Juego.prototype.constructor = Juego;
