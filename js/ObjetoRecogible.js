@@ -21,7 +21,7 @@ ObjetoRecogible = function(modelo, funcionInteraccion, objetoActivacion, objetoR
 };
 
 ObjetoRecogible.prototype = Object.create(ObjetoInteractuable.prototype);
-ObjetoRecogible.prototype.constructor = ObjetoRecogibles;
+ObjetoRecogible.prototype.constructor = ObjetoRecogible;
 
 ObjetoRecogible.prototype.interactuar = function(modo, objetoSeleccionado)
 {
