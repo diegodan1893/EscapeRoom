@@ -19,13 +19,24 @@ Nivel = function(juego)
 	/** Crear los objetos decorativos */
 	var crearFondo = function()
 	{
-		
+		var decoracion;
+
+		decoracion = new THREE.Mesh(
+			new THREE.SphereGeometry(20, 20, 20),
+			new THREE.MeshLambertMaterial({
+				color: 0xffffff,
+				map: this.texturaCargada
+			})
+		);
+		decoracion.translateZ(-30);
+
+		return decoracion;
 	};
 
 	/** Crear los objetos interactuables */
 	var crearObjetos = function()
 	{
-        
+		
 	};
 
 	var init = function(self, juego)
