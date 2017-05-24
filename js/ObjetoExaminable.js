@@ -29,11 +29,10 @@ ObjetoExaminable.prototype.interactuar = function(modo, objetoSeleccionado)
 {
     var resultado = false;
 
-    if(modo == Juego.Modo.INVESTIGANDO){
-        juego.moverCamara(this.puntoCamara); //no existe aún
-    }else if(modo == Juego.Modo.EXAMINANDO){
+    if (modo == Juego.Modo.INVESTIGANDO)
+        juego.moverCamara(this.puntoCamara);
+    else if (modo == Juego.Modo.EXAMINANDO)
         resultado = super.interactuar(modo,objetoSeleccionado);
-    }
 
     return resultado;
 };

@@ -28,11 +28,11 @@ ObjetoRecogible.prototype.constructor = ObjetoRecogible;
 ObjetoRecogible.prototype.interactuar = function(modo, objetoSeleccionado)
 {
     var resultado = false;
-    if (objetoSeleccionado === null){
+    
+    if (objetoSeleccionado === null)
         this.juego.DarObjeto(this.objetoARecoger);
-    }else if (objetoSeleccionado === this.objetoActivacion){
+    else if (objetoSeleccionado === this.objetoActivacion)
         this.juego.DarObjeto(this.objetoARecoger);
-    }
 
     resultado = super.interactuar(modo, objetoSeleccionado);
 
