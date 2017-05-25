@@ -32,7 +32,7 @@ ObjetoExaminable.prototype.interactuar = function(modo, objetoSeleccionado)
     if (modo == Juego.Modo.INVESTIGANDO)
         juego.moverCamara(this.puntoCamara);
     else if (modo == Juego.Modo.EXAMINANDO)
-        resultado = super.interactuar(modo,objetoSeleccionado);
+        resultado = ObjetoInteractuable.prototype.interactuar.apply(this, modo,objetoSeleccionado);
 
     return resultado;
 };

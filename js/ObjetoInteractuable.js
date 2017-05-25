@@ -20,7 +20,7 @@ ObjetoInteractuable = function(modelo, funcionInteraccion, objetoActivacion = nu
     this.estado = {};
 
     this.intermedio.add(modelo);
-    this.add(intermedio);
+    this.add(this.intermedio);
 
 };
 
@@ -37,7 +37,7 @@ ObjetoInteractuable.prototype.insertarSubobjeto = function(objeto)
     this.intermedio.add(objeto);
 }
 
-ObjetoInteractuable.prototype.interactuar(modo, objetoSeleccionado)
+ObjetoInteractuable.prototype.interactuar = function(modo, objetoSeleccionado)
 {
     var resultado = false;
     resultado = this.funcionInteraccion(this, modo, objetoSeleccionado);
