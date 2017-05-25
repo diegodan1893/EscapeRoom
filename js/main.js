@@ -1,5 +1,6 @@
 renderer = null;
-scene = null;
+juego = null;
+pulsacionRaton = new THREE.Vector2();
 
 /** Función para dibujar cada frame */
 function render()
@@ -8,10 +9,10 @@ function render()
 	requestAnimationFrame(render);
 
 	// Actualizar posición de la cámara
-	scene.getCameraControls().update();
+	juego.getCameraControls().update();
 
 	// Dibujar la escena
-	renderer.render(scene, scene.getCamera());
+	renderer.render(juego, juego.getCamera());
 
 	// Actualizar animaciones
 	TWEEN.update();
@@ -30,8 +31,28 @@ function createRenderer()
 function onWindowResize()
 {
 	// Actualizar la relación de aspecto
-	scene.setCameraAspect(window.innerWidth / window.innerHeight);
+	juego.setCameraAspect(window.innerWidth / window.innerHeight);
 	renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+/** Procesar eventos de ratón */
+function onMouseDown(event)
+{
+	pulsacionRaton.x = (event.clientX / window.innerWidth) * 2 - 1;
+	pulsacionRaton.y = 1 - 2 * (event.clientY / window.innerHeight);
+}
+
+function onMouseUp(event)
+{
+	var raton = new THREE.Vector2();
+	raton.x = (event.clientX / window.innerWidth) * 2 - 1;
+	raton.y = 1 - 2 * (event.clientY / window.innerHeight);
+
+	// Detectar si ha sido una pulsación o se ha arrastrado el ratón
+	if (raton.x == pulsacionRaton.x && raton.y == pulsacionRaton.y)
+	{
+		juego.interactuar(raton);
+	}
 }
 
 /** El main */
@@ -45,8 +66,12 @@ $(function(){
 	// Configurar el evento de redimensionamiento de pantalla
 	window.addEventListener("resize", onWindowResize);
 
+	// Configurar los eventos de ratón
+	document.addEventListener("mousedown", onMouseDown);
+	document.addEventListener("mouseup", onMouseUp);
+
 	// Crear la escena
-	scene = new Juego(renderer.domElement);
+	juego = new Juego(renderer.domElement);
 
 	// El primer render
 	render();

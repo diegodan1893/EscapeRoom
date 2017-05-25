@@ -7,7 +7,7 @@ Juego = function(renderer)
 	var orbitControls = null;
 
 	var nivel = null;
-	var modoActual = Juego.modo.INVESTIGANDO;
+	var modoActual = Juego.Modo.INVESTIGANDO;
 
 	/**
 	 * Crear la cámara
@@ -69,6 +69,17 @@ Juego = function(renderer)
 		camera.aspect = aspecto;
 		camera.updateProjectionMatrix();
 	};
+
+	/**
+	 * Seleccionar el objeto que está debajo del ratón y llamar
+	 * a su método de interacción
+	 * 
+	 * @param {Vector2} La posición del ratón
+	 */
+	this.interactuar = function(raton)
+	{
+		alert("Se ha pulsado el ratón");
+	}
 
 	init(this, renderer);
 };
