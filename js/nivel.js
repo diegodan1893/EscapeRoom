@@ -48,7 +48,7 @@ Nivel = function(juego)
 		var funcionCubo = function(a, b, c){alert("Cubo");};
 		var cubo = new ObjetoInteractuable(modeloCubo, funcionCubo);
 		cubo.translateY(40);
-		cubo.translateZ(-20);
+		cubo.translateZ(-30);
 		cubo.translateX(-10);
 		objetos.add(cubo);
 
@@ -58,7 +58,7 @@ Nivel = function(juego)
 		var funcionEsfera = function(a, b, c){alert("Esfera");};
 		var esfera = new ObjetoInteractuable(modeloEsfera, funcionEsfera);
 		esfera.translateY(40);
-		esfera.translateZ(-20);
+		esfera.translateZ(-30);
 		esfera.translateX(10);
 		objetos.add(esfera);
 		
