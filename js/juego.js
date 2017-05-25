@@ -8,6 +8,7 @@ Juego = function(renderer)
 
 	var nivel = null;
 	var modoActual = Juego.Modo.INVESTIGANDO;
+	var objetoExaminando = null;
 
 	/**
 	 * Crear la cámara
@@ -19,7 +20,7 @@ Juego = function(renderer)
 	{
 		camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000000);
 		camera.position.set(0, 50, 1);
-		var look = new THREE.Vector3(10, 50, 1);
+		var look = new THREE.Vector3(0, 50, 0);
 		camera.lookAt(look);
 
 		orbitControls = new THREE.OrbitControls(camera, renderer);
@@ -79,13 +80,27 @@ Juego = function(renderer)
 	this.interactuar = function(raton)
 	{
 		var raycaster = new THREE.Raycaster();
-		raycaster.setFromCamera(mouse, camera);
+		raycaster.setFromCamera(raton, camera);
 
-		var objetosSeleccionados = raycaster.intersectObjects(nivel.objetos.children);
+		var objetosSeleccionados = raycaster.intersectObjects(nivel.objetos.children, true);
 
 		// Seleccionar el más cercano
 		if (objetosSeleccionados.length > 0)
-			objetosSeleccionados[0].object.interactuar(modoActual, null);
+		{
+			// Subir en el árbol hasta encontrar el ObjetoInteractuable correspondiente
+			var objeto = objetosSeleccionados[0].object;
+			while (objeto.parent !== nivel && !('objetoInteractuable' in objeto.userData) && (objeto.userData.objetoPadre !== objetoExaminando))
+			{
+				objeto = objeto.parent;
+			}
+
+			// Comprobar si se ha encontrado un objeto interactuable
+			if ('objetoInteractuable' in objeto.userData)
+			{
+				// Llamar a su método de interacción
+				objeto.userData.objetoInteractuable.interactuar(modoActual, null);
+			}
+		}
 	}
 
 	init(this, renderer);

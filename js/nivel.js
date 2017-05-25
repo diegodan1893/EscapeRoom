@@ -47,17 +47,31 @@ Nivel = function(juego)
 										new THREE.MeshLambertMaterial({color: 0xaa0000}));
 		var funcionCubo = function(a, b, c){alert("Cubo");};
 		var cubo = new ObjetoInteractuable(modeloCubo, funcionCubo);
+		cubo.translateY(40);
+		cubo.translateZ(-20);
+		cubo.translateX(-10);
+		objetos.add(cubo);
 
+		// Esfera
+		var modeloEsfera = new THREE.Mesh(new THREE.SphereGeometry(5, 32, 32),
+										  new THREE.MeshLambertMaterial({color: 0x0000aa}));
+		var funcionEsfera = function(a, b, c){alert("Esfera");};
+		var esfera = new ObjetoInteractuable(modeloEsfera, funcionEsfera);
+		esfera.translateY(40);
+		esfera.translateZ(-20);
+		esfera.translateX(10);
+		objetos.add(esfera);
+		
 		return objetos;
 	};
 
 	var init = function(self, juego)
 	{
 		crearLuces(self);
-		fondo = crearFondo();
-		objetos = crearObjetos();
-		self.add(fondo);
-		self.add(objetos);
+		self.fondo = crearFondo();
+		self.objetos = crearObjetos();
+		self.add(self.fondo);
+		self.add(self.objetos);
 	};
 
 	init(this, juego);
