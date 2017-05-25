@@ -7,6 +7,7 @@ Juego = function(renderer)
 	var orbitControls = null;
 
 	var nivel = null;
+	var modoActual = Juego.modo.INVESTIGANDO;
 
 	/**
 	 * Crear la cámara
@@ -80,5 +81,4 @@ Juego.Modo =
 {
 	INVESTIGANDO : 0,
 	EXAMINANDO : 1
-
 }
