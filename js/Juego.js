@@ -24,7 +24,7 @@ Juego = function(renderer)
 		camera.lookAt(look);
 
 		orbitControls = new THREE.OrbitControls(camera, renderer);
-		orbitControls.rotateSpeed = 0.6;
+		orbitControls.rotateSpeed = 0.4;
 		orbitControls.zoomSpeed = -2;
 		orbitControls.panSpeed = 0.5;
 		orbitControls.target = look;
