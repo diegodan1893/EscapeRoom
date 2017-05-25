@@ -14,7 +14,7 @@
 ObjetoRecogible = function(modelo, funcionInteraccion, objetoActivacion, objetoRecoger, juego)
 {
     // Llamar al super
-    ObjetoInteractuable.call(this,modelo,funcionInteraccion, objetoActivacion);
+    ObjetoInteractuable.call(this, modelo, funcionInteraccion, objetoActivacion);
 
     // Variables
     this.juego = juego;
