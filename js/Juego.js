@@ -87,9 +87,17 @@ Juego = function(renderer)
 		// Seleccionar el más cercano
 		if (objetosSeleccionados.length > 0)
 		{
-			// Subir en el árbol hasta encontrar el ObjetoInteractuable correspondiente
+			/**
+			 * Subir en el árbol hasta encontrar el ObjetoInteractuable correspondiente:
+			 * un objeto de primer nivel si el jugador no está examinando nada,
+			 * un subobjeto del objeto que está examinando,
+			 * o el propio objeto que está examinando
+			 */ 
 			var objeto = objetosSeleccionados[0].object;
-			while (objeto.parent !== nivel && !('objetoInteractuable' in objeto.userData) && (objeto.userData.objetoPadre !== objetoExaminando))
+			while (objeto.parent !== nivel
+					&& !('objetoInteractuable' in objeto.userData)
+					&& (objeto.userData.objetoPadre !== objetoExaminando
+					&& objeto.userData.objetoInteractuable !== objetoExaminando))
 			{
 				objeto = objeto.parent;
 			}
@@ -110,8 +118,7 @@ Juego.prototype = Object.create(THREE.Scene.prototype);
 Juego.prototype.constructor = Juego;
 
 // Enum de modos o lo que sea
-Juego.Modo =
-{
+Juego.Modo = {
 	INVESTIGANDO : 0,
 	EXAMINANDO : 1
 }
