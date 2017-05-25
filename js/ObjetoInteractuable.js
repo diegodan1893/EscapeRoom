@@ -7,7 +7,7 @@
  * @param {FuncionInteraccion} funcionInteraccion Función utilizada para la interacción.
  * @param {ObjetoInventario} objetoActivacion Objeto utilizado para interactuar con el entorno.
  */
-ObjetoInteractuable = function(modelo, funcionInteraccion, objetoActivacion)
+ObjetoInteractuable = function(modelo, funcionInteraccion, objetoActivacion = null)
 {
 
     // Llamar al super
