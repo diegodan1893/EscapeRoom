@@ -78,7 +78,14 @@ Juego = function(renderer)
 	 */
 	this.interactuar = function(raton)
 	{
-		alert("Se ha pulsado el ratón");
+		var raycaster = new THREE.Raycaster();
+		raycaster.setFromCamera(mouse, camera);
+
+		var objetosSeleccionados = raycaster.intersectObjects(nivel.objetos.children);
+
+		// Seleccionar el más cercano
+		if (objetosSeleccionados.length > 0)
+			objetosSeleccionados[0].object.interactuar(modoActual, null);
 	}
 
 	init(this, renderer);

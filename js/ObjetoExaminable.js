@@ -11,7 +11,7 @@
  */
 
 
-ObjetoRecogible = function(modelo, funcionInteraccion, puntoCamara, juego, objetoActivacion = null)
+ObjetoExaminable = function(modelo, funcionInteraccion, puntoCamara, juego, objetoActivacion = null)
 {
     // Llamar al super
     ObjetoInteractuable.call(this, modelo, funcionInteraccion, objetoActivacion);

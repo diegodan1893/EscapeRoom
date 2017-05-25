@@ -7,7 +7,7 @@ Nivel = function(juego)
 	var fondo = null;
 
 	// Objetos interactuables
-	var objetos = null;
+	this.objetos = new THREE.Object3D();
 
 	/** Crear las luces */
 	var crearLuces = function(self)
@@ -40,7 +40,15 @@ Nivel = function(juego)
 	/** Crear los objetos interactuables */
 	var crearObjetos = function()
 	{
-		
+		var objetos = new THREE.Object3D();
+
+		// Cubo
+		var modeloCubo = new THREE.Mesh(new THREE.BoxGeometry(5, 5, 5),
+										new THREE.MeshLambertMaterial({color: 0xaa0000}));
+		var funcionCubo = function(a, b, c){alert("Cubo");};
+		var cubo = new ObjetoInteractuable(modeloCubo, funcionCubo);
+
+		return objetos;
 	};
 
 	var init = function(self, juego)
