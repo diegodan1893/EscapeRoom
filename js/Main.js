@@ -52,6 +52,7 @@ function onMouseUp(event)
 	// Detectar si ha sido una pulsación o se ha arrastrado el ratón
 	if (raton.x == pulsacionRaton.x && raton.y == pulsacionRaton.y)
 	{
+		juego.getCameraControls().onMouseUp(event);
 		juego.interactuar(raton);
 	}
 }

@@ -30,10 +30,10 @@ ObjetoExaminable.prototype.interactuar = function(modo, objetoSeleccionado)
 {
     var resultado = false;
 
-    if (modo == Juego.Modo.INVESTIGANDO)
+    if (modo === Juego.Modo.INVESTIGANDO)
         juego.examinarObjeto(this);
-    else if (modo == Juego.Modo.EXAMINANDO)
-        resultado = ObjetoInteractuable.prototype.interactuar.apply(this, modo,objetoSeleccionado);
+    else if (modo === Juego.Modo.EXAMINANDO)
+        resultado = ObjetoInteractuable.prototype.interactuar.call(this, modo,objetoSeleccionado);
 
     return resultado;
 };

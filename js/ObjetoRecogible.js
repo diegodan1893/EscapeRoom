@@ -34,7 +34,7 @@ ObjetoRecogible.prototype.interactuar = function(modo, objetoSeleccionado)
     else if (objetoSeleccionado === this.objetoActivacion)
         this.juego.DarObjeto(this.objetoARecoger);
 
-    resultado = ObjetoInteractuable.prototype.interactuar.apply(this, modo, objetoSeleccionado);
+    resultado = ObjetoInteractuable.prototype.interactuar.call(this, modo, objetoSeleccionado);
 
     return resultado;
 }

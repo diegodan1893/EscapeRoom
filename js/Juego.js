@@ -128,7 +128,18 @@ Juego = function(renderer)
 		if (objetoExaminando === null)
 		{
 			// Almacenar la posición actual de la cámara
-			posicionInicialCamara = {posicion: camera.position, rotacion: camera.rotation};
+			posicionInicialCamara = {
+				posicion: {
+					x: camera.position.x,
+					y: camera.position.y,
+					z: camera.position.z
+				},
+				rotacion: {
+					x: camera.rotation.x,
+					y: camera.rotation.y,
+					z: camera.rotation.z
+				}
+			};
 		}
 
 		// Desactivar controles
@@ -173,8 +184,11 @@ Juego = function(renderer)
 			.onComplete(function(){
 				interaccionActivada = true;
 
-				this.modoActual = Juego.Modo.EXAMINANDO;
-				this.objetoExaminando = objeto;
+				modoActual = Juego.Modo.EXAMINANDO;
+				objetoExaminando = objeto;
+
+				// Mostrar botón para salir
+				$("#boton-salir-examinar").fadeIn(400);
 			})
 			.start();
 	}
@@ -221,10 +235,13 @@ Juego = function(renderer)
 				orbitControls.enabled = true;
 				interaccionActivada = true;
 
-				this.modoActual = Juego.Modo.INVESTIGANDO;
-				this.objetoExaminando = null;
+				modoActual = Juego.Modo.INVESTIGANDO;
+				objetoExaminando = null;
 			})
 			.start();
+
+		// Ocultar botón para salir
+		$("#boton-salir-examinar").fadeOut(400);
 	}
 
 	init(this, renderer);

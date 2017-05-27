@@ -9,6 +9,8 @@
         <meta name="apple-mobile-web-app-title" content="Escape Room">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/estilo.css">
+        <link rel="stylesheet" href="css/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
         <script type="text/javascript" src="libs/jquery-1.9.0.js"></script>
         <script type="text/javascript" src="libs/three.js"></script>
@@ -36,6 +38,14 @@
         <!-- Pantalla de carga -->
         <div id="cargador" class="no-select">
             <div id="spinner"></div>
+        </div>
+
+        <!-- HUD -->
+        <!-- Botón para dejar de examinar -->
+        <div id="boton-salir-examinar" class="no-select">
+            <button class="w3-btn w3-blue w3-xlarge" onclick="juego.dejarDeExaminar()">
+                <i class="material-icons">arrow_back</i> Volver
+            </button>
         </div>
     </body>
 </html>
