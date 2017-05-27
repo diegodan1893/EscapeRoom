@@ -26,7 +26,7 @@ Inventario = function()
         if(this.seleccionado != -1)
         {
             var total = this.listaObjetos.length;
-            this.seleccionado = (this.seleccionado-1)%total;
+            this.seleccionado = (this.seleccionado-1 + total) % total;
         }
     };
 
