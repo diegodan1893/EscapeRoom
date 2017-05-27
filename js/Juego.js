@@ -198,50 +198,53 @@ Juego = function(renderer)
 	 */
 	this.dejarDeExaminar = function()
 	{
-		// Desactivar controles
-		interaccionActivada = false;
+		if (interaccionActivada)
+		{
+			// Desactivar controles
+			interaccionActivada = false;
 
-		// Interpolar 
-		var puntoCamaraInicial = {
-			x: camera.position.x,
-			y: camera.position.y,
-			z: camera.position.z,
+			// Interpolar 
+			var puntoCamaraInicial = {
+				x: camera.position.x,
+				y: camera.position.y,
+				z: camera.position.z,
 
-			rx: camera.rotation.x,
-			ry: camera.rotation.y,
-			rz: camera.rotation.z
-		};
+				rx: camera.rotation.x,
+				ry: camera.rotation.y,
+				rz: camera.rotation.z
+			};
 
-		var puntoCamaraFinal = {
-			x: posicionInicialCamara.posicion.x,
-			y: posicionInicialCamara.posicion.y,
-			z: posicionInicialCamara.posicion.z,
+			var puntoCamaraFinal = {
+				x: posicionInicialCamara.posicion.x,
+				y: posicionInicialCamara.posicion.y,
+				z: posicionInicialCamara.posicion.z,
 
-			rx: posicionInicialCamara.rotacion.x,
-			ry: posicionInicialCamara.rotacion.y,
-			rz: posicionInicialCamara.rotacion.z
-		};
+				rx: posicionInicialCamara.rotacion.x,
+				ry: posicionInicialCamara.rotacion.y,
+				rz: posicionInicialCamara.rotacion.z
+			};
 
-		var tiempoInterpolacion = 1000;
+			var tiempoInterpolacion = 1000;
 
-		this.interpoladorCamara = new TWEEN.Tween(puntoCamaraInicial).to(puntoCamaraFinal, tiempoInterpolacion)
-			.onUpdate(function(){
-				camera.position.set(puntoCamaraInicial.x, puntoCamaraInicial.y, puntoCamaraInicial.z);
-				camera.rotation.set(puntoCamaraInicial.rx, puntoCamaraInicial.ry, puntoCamaraInicial.rz);
-			})
-			.easing(TWEEN.Easing.Quadratic.InOut)
-			.onComplete(function(){
-				// Activar interaccion
-				orbitControls.enabled = true;
-				interaccionActivada = true;
+			this.interpoladorCamara = new TWEEN.Tween(puntoCamaraInicial).to(puntoCamaraFinal, tiempoInterpolacion)
+				.onUpdate(function(){
+					camera.position.set(puntoCamaraInicial.x, puntoCamaraInicial.y, puntoCamaraInicial.z);
+					camera.rotation.set(puntoCamaraInicial.rx, puntoCamaraInicial.ry, puntoCamaraInicial.rz);
+				})
+				.easing(TWEEN.Easing.Quadratic.InOut)
+				.onComplete(function(){
+					// Activar interaccion
+					orbitControls.enabled = true;
+					interaccionActivada = true;
 
-				modoActual = Juego.Modo.INVESTIGANDO;
-				objetoExaminando = null;
-			})
-			.start();
+					modoActual = Juego.Modo.INVESTIGANDO;
+					objetoExaminando = null;
+				})
+				.start();
 
-		// Ocultar botón para salir
-		$("#boton-salir-examinar").fadeOut(400);
+			// Ocultar botón para salir
+			$("#boton-salir-examinar").fadeOut(400);
+		}
 	}
 
 	init(this, renderer);
