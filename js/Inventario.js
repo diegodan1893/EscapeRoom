@@ -38,7 +38,7 @@ Inventario = function()
             objeto = this.listaObjetos[this.seleccionado];
         }
         return objeto;
-    }
+    };
 
     var darObjeto = new function(objeto)
     {
@@ -49,7 +49,7 @@ Inventario = function()
     {
         var posicion = this.listaObjetos.indexOf(objeto);
         this.listaObjetos.splice(posicion,1);
-    }
+    };
 
 };
 
