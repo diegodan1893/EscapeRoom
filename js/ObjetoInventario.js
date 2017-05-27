@@ -18,24 +18,24 @@ ObjetoInventario = function(nombre, imagen)
 
 };
 
-ObjetoRecogible.prototype.constructor = ObjetoRecogible;
+ObjetoInventario.prototype.constructor = ObjetoInventario;
 
-ObjetoRecogible.prototype.getName = function()
+ObjetoInventario.prototype.getName = function()
 {
     return this.nombre;
 };
 
-ObjetoRecogible.prototype.getImagen = function()
+ObjetoInventario.prototype.getImagen = function()
 {
     return this.imagen;
 };
 
-ObjetoRecogible.prototype.setName = function(name)
+ObjetoInventario.prototype.setName = function(name)
 {
     this.nombre = name;
 };
 
-ObjetoRecogible.prototype.setImagen = function(image)
+ObjetoInventario.prototype.setImagen = function(image)
 {
     this.imagen = image;
 };
