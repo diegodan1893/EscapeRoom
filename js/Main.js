@@ -68,12 +68,19 @@ $(function(){
 	window.addEventListener("resize", onWindowResize);
 
 	// Configurar los eventos de ratón
-	document.addEventListener("mousedown", onMouseDown);
-	document.addEventListener("mouseup", onMouseUp);
+	document.getElementById("WebGL-output").addEventListener("mousedown", onMouseDown);
+	document.getElementById("WebGL-output").addEventListener("mouseup", onMouseUp);
 
 	// Crear la escena
 	juego = new Juego(renderer.domElement);
 
 	// El primer render
 	render();
+
+	// Quitar la pantalla de carga cuando todo esté listo
+	var manager = THREE.DefaultLoadingManager;
+	manager.onLoad = function()
+	{
+		$("#cargador").fadeOut(400);
+	}
 });
