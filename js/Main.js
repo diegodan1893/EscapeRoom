@@ -83,4 +83,7 @@ $(function(){
 	{
 		$("#cargador").fadeOut(400);
 	}
+
+	// Desactivar pantalla de carga temporalmente
+	$("#cargador").fadeOut(0);
 });
