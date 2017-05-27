@@ -1,10 +1,8 @@
-/** Clase inventario*/
+/** Clase inventario */
 
 /**
  * Inventario
-*/
-
-
+ */
 Inventario = function()
 {
 
@@ -12,7 +10,7 @@ Inventario = function()
     this.seleccionado = -1;
     this.listaObjetos = [];
 
-    var seleccionarSiguiente = new function()
+    this.seleccionarSiguiente = function()
     {
         if(this.seleccionado != -1)
         {
@@ -21,7 +19,7 @@ Inventario = function()
         }
     };
 
-    var seleccionarAnterior = new function()
+    this.seleccionarAnterior = function()
     {
         if(this.seleccionado != -1)
         {
@@ -30,7 +28,7 @@ Inventario = function()
         }
     };
 
-    var obtenerSeleccionado = new function()
+    this.obtenerSeleccionado = function()
     {
         var objeto = null;
         if(this.seleccionado!=-1)
@@ -40,12 +38,14 @@ Inventario = function()
         return objeto;
     };
 
-    var darObjeto = new function(objeto)
+    this.darObjeto = function(objeto)
     {
         this.listaObjetos.push(objeto);
+
+        console.log(this.listaObjetos);
     };
 
-    var eliminarObjeto = new function(objeto)
+    this.eliminarObjeto = function(objeto)
     {
         var posicion = this.listaObjetos.indexOf(objeto);
         this.listaObjetos.splice(posicion,1);

@@ -46,7 +46,8 @@ Nivel = function(juego)
 		var modeloCubo = new THREE.Mesh(new THREE.BoxGeometry(5, 5, 5),
 										new THREE.MeshLambertMaterial({color: 0xaa0000}));
 		var funcionCubo = function(a, b, c){alert("Cubo");};
-		var cubo = new ObjetoInteractuable(modeloCubo, funcionCubo);
+		var objetoCubo = new ObjetoInventario("Cubo", "imagencubo");
+		var cubo = new ObjetoRecogible(modeloCubo, funcionCubo, objetoCubo, juego);
 		cubo.translateY(40);
 		cubo.translateZ(-30);
 		cubo.translateX(-10);
@@ -57,7 +58,7 @@ Nivel = function(juego)
 										  new THREE.MeshLambertMaterial({color: 0x0000aa}));
 		var funcionEsfera = function(a, b, c){alert("Esfera");};
 		var puntoEsfera = new THREE.Object3D();
-		puntoEsfera.rotateY(90 * (Math.PI/180));
+		puntoEsfera.rotateY(15 * (Math.PI/180));
 		puntoEsfera.translateZ(30);
 		puntoEsfera.updateMatrix();
 		var esfera = new ObjetoExaminable(modeloEsfera, funcionEsfera, puntoEsfera, juego);

@@ -13,6 +13,9 @@ Juego = function(renderer)
 
 	var interaccionActivada = true;
 
+	// Inventario del jugador
+	var inventario = new Inventario();
+
 	/**
 	 * Crear la cámara
 	 * 
@@ -108,10 +111,13 @@ Juego = function(renderer)
 				}
 
 				// Comprobar si se ha encontrado un objeto interactuable
-				if ('objetoInteractuable' in objeto.userData)
+				if ('objetoInteractuable' in objeto.userData && (objeto.userData.objetoPadre == objetoExaminando || objeto.userData.objetoInteractuable === objetoExaminando))
 				{
 					// Llamar a su método de interacción
-					objeto.userData.objetoInteractuable.interactuar(modoActual, null);
+					var quitar = objeto.userData.objetoInteractuable.interactuar(modoActual, inventario.obtenerSeleccionado());
+
+					if (quitar)
+						eliminarObjeto(inventario.obtenerSeleccionado());
 				}
 			}
 		}
@@ -246,6 +252,27 @@ Juego = function(renderer)
 			$("#boton-salir-examinar").fadeOut(400);
 		}
 	}
+
+	// Inventario
+	/**
+	 * Añade un objeto al inventario del jugador
+	 * 
+	 * @param {ObjetoInventario} El objeto a añadir
+	 */
+	this.darObjeto = function(objeto)
+	{
+		inventario.darObjeto(objeto);
+	};
+
+	/**
+	 * Eliminar un objeto del inventario del jugador
+	 * 
+	 * @param {ObjetoInventario} El objeto a eliminar
+	 */
+	this.eliminarObjeto = function(objeto)
+	{
+		inventario.eliminarObjeto(objeto);
+	};
 
 	init(this, renderer);
 };
