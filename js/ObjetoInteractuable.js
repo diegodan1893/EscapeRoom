@@ -23,8 +23,8 @@ ObjetoInteractuable = function(modelo, funcionInteraccion, objetoActivacion = nu
     this.add(this.intermedio);
 
     // Añadir datos al modelo para permitir el pick
-    modelo.userData.objetoInteractuable = this;
-    modelo.userData.objetoPadre = null;
+    this.userData.objetoInteractuable = this;
+    this.userData.objetoPadre = null;
 };
 
 ObjetoInteractuable.prototype = Object.create(THREE.Object3D.prototype);
@@ -40,7 +40,7 @@ ObjetoInteractuable.prototype.insertarSubobjeto = function(objeto)
     this.intermedio.add(objeto);
 
     // Añadir datos al objeto para permitir el pick
-    objeto.modelo.objetoPadre = this;
+    objeto.userData.objetoPadre = this;
 }
 
 ObjetoInteractuable.prototype.interactuar = function(modo, objetoSeleccionado)

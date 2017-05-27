@@ -90,7 +90,7 @@ Juego = function(renderer)
 			var raycaster = new THREE.Raycaster();
 			raycaster.setFromCamera(raton, camera);
 
-			var objetosSeleccionados = raycaster.intersectObjects(nivel.objetos.children, true);
+			objetosSeleccionados = raycaster.intersectObjects(nivel.objetos.children, true);
 
 			// Seleccionar el más cercano
 			if (objetosSeleccionados.length > 0)
@@ -102,22 +102,30 @@ Juego = function(renderer)
 				 * o el propio objeto que está examinando
 				 */ 
 				var objeto = objetosSeleccionados[0].object;
-				while (objeto.parent !== nivel
-						&& !('objetoInteractuable' in objeto.userData)
-						&& (objeto.userData.objetoPadre !== objetoExaminando
-						&& objeto.userData.objetoInteractuable !== objetoExaminando))
+				while (objeto.parent !== nivel && !('objetoInteractuable' in objeto.userData))
 				{
 					objeto = objeto.parent;
 				}
 
-				// Comprobar si se ha encontrado un objeto interactuable
-				if ('objetoInteractuable' in objeto.userData && (objeto.userData.objetoPadre == objetoExaminando || objeto.userData.objetoInteractuable === objetoExaminando))
+				if ('objetoInteractuable' in objeto.userData)
 				{
-					// Llamar a su método de interacción
-					var quitar = objeto.userData.objetoInteractuable.interactuar(modoActual, inventario.obtenerSeleccionado());
+					while (objeto !== null 
+						&& (objeto.userData.objetoPadre !== objetoExaminando
+							&& objeto.userData.objetoInteractuable !== objetoExaminando))
+					{
+						objeto = objeto.userData.objetoPadre;
+					}
 
-					if (quitar)
-						eliminarObjeto(inventario.obtenerSeleccionado());
+					if (objetoExaminando == null 
+						|| (objeto !== null && (objeto.userData.objetoPadre == objetoExaminando
+							|| objeto.userData.objetoInteractuable === objetoExaminando)))
+					{
+						// Llamar a su método de interacción
+						var quitar = objeto.userData.objetoInteractuable.interactuar(modoActual, inventario.obtenerSeleccionado());
+
+						if (quitar)
+							eliminarObjeto(inventario.obtenerSeleccionado());
+					}
 				}
 			}
 		}
