@@ -41,6 +41,7 @@ Inventario = function()
     this.darObjeto = function(objeto)
     {
         this.listaObjetos.push(objeto);
+        this.seleccionado = listaObjetos.length - 1;
     };
 
     this.eliminarObjeto = function(objeto)
