@@ -35,6 +35,15 @@
     z-index: 10;
 }
 
+#boton-aceptar {
+    display: none;
+
+    position:fixed;
+    right: 5%;
+    bottom: 5%;
+    z-index: 10;
+}
+
 #oscurecer {
     display: none;
 

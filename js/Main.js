@@ -13,7 +13,18 @@ function render()
 		juego.getCameraControls().update();
 
 	// Dibujar la escena
+	renderer.clear();
 	renderer.render(juego, juego.getCamera());
+
+	// Dibujar el visor de objetos si es necesario
+	if (juego.mostrarVisorObjetos())
+	{
+		var visor = juego.obtenerVisorObjetos();
+
+		visor.getCameraControls().update();
+		renderer.clearDepth();
+		renderer.render(visor, visor.getCamera());
+	}
 
 	// Actualizar animaciones
 	TWEEN.update();
@@ -23,6 +34,7 @@ function render()
 function createRenderer()
 {
 	var renderer = new THREE.WebGLRenderer();
+	renderer.autoClear = false;
 	renderer.setClearColor(new THREE.Color(0x000000), 1.0);
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	return renderer;
@@ -33,6 +45,10 @@ function onWindowResize()
 {
 	// Actualizar la relación de aspecto
 	juego.setCameraAspect(window.innerWidth / window.innerHeight);
+
+	if (juego.mostrarVisorObjetos())
+		juego.obtenerVisorObjetos().setCameraAspect(window.innerWidth / window.innerHeight);
+
 	renderer.setSize(window.innerWidth, window.innerHeight);
 }
 

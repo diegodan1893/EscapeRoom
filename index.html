@@ -19,6 +19,7 @@
         <script type="text/javascript" src="libs/OrbitControls.js"></script>
         <script type="text/javascript" src="libs/Tween.js"></script>               
         <script type="text/javascript" src="js/Juego.js"></script> 
+        <script type="text/javascript" src="js/VisorObjetos.js"></script> 
         <script type="text/javascript" src="js/Nivel.js"></script> 
         <script type="text/javascript" src="js/ObjetoInteractuable.js"></script> 
         <script type="text/javascript" src="js/ObjetoRecogible.js"></script> 
@@ -49,6 +50,12 @@
         <div id="boton-salir-examinar" class="no-select">
             <button class="w3-btn w3-blue w3-xlarge" onclick="juego.dejarDeExaminar()">
                 <i class="material-icons">arrow_back</i> Volver
+            </button>
+        </div>
+
+        <div id="boton-aceptar" class="no-select">
+            <button class="w3-btn w3-blue w3-xlarge" onclick="juego.ocultarVisorObjetos()">
+                Aceptar
             </button>
         </div>
     </body>

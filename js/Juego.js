@@ -16,6 +16,10 @@ Juego = function(renderer)
 	// Inventario del jugador
 	var inventario = new Inventario();
 
+	// Visor de objetos
+	var visor = null;
+	var mostrarVisor = false;
+
 	/**
 	 * Crear la cámara
 	 * 
@@ -281,6 +285,58 @@ Juego = function(renderer)
 	{
 		inventario.eliminarObjeto(objeto);
 	};
+
+	/**
+	 * Devuelve si es necesario mostrar el visor de objetos
+	 */
+	this.mostrarVisorObjetos = function()
+	{
+		return mostrarVisor
+	}
+
+	/**
+	 * Devuelve el visor de objetos activo
+	 */
+	this.obtenerVisorObjetos = function()
+	{
+		return visor;
+	}
+
+	/**
+	 * Activa el visor de objetos para un objeto
+	 */
+	this.visualizarObjeto = function(objeto, distancia = 20)
+	{
+		visor = new VisorObjetos(renderer, objeto, distancia);
+		mostrarVisor = true;
+
+		// Desactivar control
+		interaccionActivada = false;
+		orbitControls.enabled = false;
+
+		$("#boton-aceptar").fadeIn(400);
+
+		if (modoActual == Juego.Modo.EXAMINANDO)
+			$("#boton-salir-examinar").fadeOut(400);
+	}
+
+	/**
+	 * Desactiva el visor de objetos
+	 */
+	this.ocultarVisorObjetos = function()
+	{
+		visor = null;
+		mostrarVisor = false;
+
+		// Activar control
+		orbitControls.enabled = modoActual == Juego.Modo.INVESTIGANDO;
+		interaccionActivada = true;
+
+		$("#boton-aceptar").fadeOut(400);
+
+		if (modoActual == Juego.Modo.EXAMINANDO)
+			$("#boton-salir-examinar").fadeIn(400);
+	}
 
 	init(this, renderer);
 };

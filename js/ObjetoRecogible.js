@@ -33,6 +33,7 @@ ObjetoRecogible.prototype.interactuar = function(modo, objetoSeleccionado)
     {
         juego.darObjeto(this.objetoARecoger);
         this.parent.remove(this);
+        juego.visualizarObjeto(this.modelo);
     }
 
     resultado = ObjetoInteractuable.prototype.interactuar.call(this, modo, objetoSeleccionado);
