@@ -29,12 +29,12 @@ ObjetoRecogible.prototype.interactuar = function(modo, objetoSeleccionado)
 {
     var resultado = false;
     
-    if (objetoSeleccionado === null)
+    if (objetoSeleccionado === null || objetoSeleccionado === this.objetoActivacion)
+    {
         this.juego.DarObjeto(this.objetoARecoger);
-    else if (objetoSeleccionado === this.objetoActivacion)
-        this.juego.DarObjeto(this.objetoARecoger);
+    }
 
     resultado = ObjetoInteractuable.prototype.interactuar.call(this, modo, objetoSeleccionado);
 
     return resultado;
-}
+};
