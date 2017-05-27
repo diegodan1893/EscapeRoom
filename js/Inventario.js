@@ -1,4 +1,4 @@
-** Clas inventario*/
+/** Clase inventario*/
 
 /**
  * Inventario
