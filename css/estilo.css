@@ -57,6 +57,33 @@
     opacity: 0.7;
 }
 
+#inventario {
+    display: none;
+
+    position:fixed;
+    left: 5%;
+    top: 5%;
+    z-index: 10;
+}
+
+#inventario-izq {
+    height: 150px;
+    width: 30px;
+    margin-right: 10px;
+    float: left;
+}
+
+#inventario-der {
+    height: 150px;
+    width: 30px;
+    margin-left: 10px;
+    float: right; 
+}
+
+.centrar {
+    line-height: 150px !important;
+}
+
 .no-select {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */

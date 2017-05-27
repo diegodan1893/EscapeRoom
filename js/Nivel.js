@@ -46,7 +46,7 @@ Nivel = function(juego)
 		var modeloCubo = new THREE.Mesh(new THREE.BoxGeometry(5, 5, 5),
 										new THREE.MeshLambertMaterial({color: 0xaa0000}));
 		var funcionCubo = function(a, b, c){alert("Cubo");};
-		var objetoCubo = new ObjetoInventario("Cubo", "imagencubo");
+		var objetoCubo = new ObjetoInventario("Cubo", "imgs/inventario/test.png");
 		var cubo = new ObjetoRecogible(modeloCubo, funcionCubo, objetoCubo, juego);
 		cubo.translateY(40);
 		cubo.translateZ(-30);
@@ -71,7 +71,7 @@ Nivel = function(juego)
 		var modeloCubo = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3),
 										new THREE.MeshLambertMaterial({color: 0x00aa00}));
 		var funcionCubo = function(a, b, c){alert("Subcubo");};
-		var objetoCubo = new ObjetoInventario("Subcubo", "imagencubo");
+		var objetoCubo = new ObjetoInventario("Subcubo", "imgs/inventario/test2.png");
 		var cubo = new ObjetoRecogible(modeloCubo, funcionCubo, objetoCubo, juego);
 		cubo.translateZ(-7);
 		esfera.insertarSubobjeto(cubo);

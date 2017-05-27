@@ -41,15 +41,22 @@ Inventario = function()
     this.darObjeto = function(objeto)
     {
         this.listaObjetos.push(objeto);
-        this.seleccionado = listaObjetos.length - 1;
+        this.seleccionado = this.listaObjetos.length - 1;
     };
 
     this.eliminarObjeto = function(objeto)
     {
         var posicion = this.listaObjetos.indexOf(objeto);
         this.listaObjetos.splice(posicion,1);
+
+        if (this.seleccionado >= this.listaObjetos.length)
+            this.seleccionado = this.listaObjetos.length - 1;
     };
 
+    this.vacio = function()
+    {
+        return this.listaObjetos.length == 0;
+    }
 };
 
 Inventario.prototype.constructor = Inventario;

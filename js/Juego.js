@@ -274,6 +274,7 @@ Juego = function(renderer)
 	this.darObjeto = function(objeto)
 	{
 		inventario.darObjeto(objeto);
+		this.actualizarInterfaz();
 	};
 
 	/**
@@ -284,6 +285,30 @@ Juego = function(renderer)
 	this.eliminarObjeto = function(objeto)
 	{
 		inventario.eliminarObjeto(objeto);
+		this.actualizarInterfaz();
+	};
+
+	this.seleccionarSiguiente = function()
+	{
+		inventario.seleccionarSiguiente();
+		this.actualizarInterfaz();
+	}
+
+	this.seleccionarAnterior = function()
+	{
+		inventario.seleccionarAnterior();
+		this.actualizarInterfaz();
+	}
+
+	/**
+	 * Actualizar los elementos de la interfaz
+	 */
+	this.actualizarInterfaz = function()
+	{
+		if (inventario.vacio())
+			$("#inventario").fadeOut(400);
+		else
+			document.getElementById("objeto-seleccionado").src = inventario.obtenerSeleccionado().getImagen();
 	};
 
 	/**
@@ -318,6 +343,8 @@ Juego = function(renderer)
 
 		if (modoActual == Juego.Modo.EXAMINANDO)
 			$("#boton-salir-examinar").fadeOut(400);
+
+		$("#inventario").fadeOut(400);
 	}
 
 	/**
@@ -336,6 +363,9 @@ Juego = function(renderer)
 
 		if (modoActual == Juego.Modo.EXAMINANDO)
 			$("#boton-salir-examinar").fadeIn(400);
+
+		if (!inventario.vacio())
+			$("#inventario").fadeIn(400);
 	}
 
 	init(this, renderer);

@@ -29,7 +29,7 @@ ObjetoRecogible.prototype.interactuar = function(modo, objetoSeleccionado)
 {
     var resultado = false;
     
-    if (objetoSeleccionado === null || objetoSeleccionado === this.objetoActivacion)
+    if (this.objetoActivacion === null || objetoSeleccionado === this.objetoActivacion)
     {
         juego.darObjeto(this.objetoARecoger);
         this.parent.remove(this);
