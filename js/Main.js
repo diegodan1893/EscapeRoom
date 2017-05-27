@@ -9,7 +9,8 @@ function render()
 	requestAnimationFrame(render);
 
 	// Actualizar posición de la cámara
-	juego.getCameraControls().update();
+	if (juego.getCameraControls().enabled)
+		juego.getCameraControls().update();
 
 	// Dibujar la escena
 	renderer.render(juego, juego.getCamera());

@@ -9,6 +9,9 @@ Juego = function(renderer)
 	var nivel = null;
 	var modoActual = Juego.Modo.INVESTIGANDO;
 	var objetoExaminando = null;
+	var posicionInicialCamara = null;
+
+	var interaccionActivada = true;
 
 	/**
 	 * Crear la cámara
@@ -79,36 +82,97 @@ Juego = function(renderer)
 	 */
 	this.interactuar = function(raton)
 	{
-		var raycaster = new THREE.Raycaster();
-		raycaster.setFromCamera(raton, camera);
-
-		var objetosSeleccionados = raycaster.intersectObjects(nivel.objetos.children, true);
-
-		// Seleccionar el más cercano
-		if (objetosSeleccionados.length > 0)
+		if (interaccionActivada)
 		{
-			/**
-			 * Subir en el árbol hasta encontrar el ObjetoInteractuable correspondiente:
-			 * un objeto de primer nivel si el jugador no está examinando nada,
-			 * un subobjeto del objeto que está examinando,
-			 * o el propio objeto que está examinando
-			 */ 
-			var objeto = objetosSeleccionados[0].object;
-			while (objeto.parent !== nivel
-					&& !('objetoInteractuable' in objeto.userData)
-					&& (objeto.userData.objetoPadre !== objetoExaminando
-					&& objeto.userData.objetoInteractuable !== objetoExaminando))
-			{
-				objeto = objeto.parent;
-			}
+			var raycaster = new THREE.Raycaster();
+			raycaster.setFromCamera(raton, camera);
 
-			// Comprobar si se ha encontrado un objeto interactuable
-			if ('objetoInteractuable' in objeto.userData)
+			var objetosSeleccionados = raycaster.intersectObjects(nivel.objetos.children, true);
+
+			// Seleccionar el más cercano
+			if (objetosSeleccionados.length > 0)
 			{
-				// Llamar a su método de interacción
-				objeto.userData.objetoInteractuable.interactuar(modoActual, null);
+				/**
+				 * Subir en el árbol hasta encontrar el ObjetoInteractuable correspondiente:
+				 * un objeto de primer nivel si el jugador no está examinando nada,
+				 * un subobjeto del objeto que está examinando,
+				 * o el propio objeto que está examinando
+				 */ 
+				var objeto = objetosSeleccionados[0].object;
+				while (objeto.parent !== nivel
+						&& !('objetoInteractuable' in objeto.userData)
+						&& (objeto.userData.objetoPadre !== objetoExaminando
+						&& objeto.userData.objetoInteractuable !== objetoExaminando))
+				{
+					objeto = objeto.parent;
+				}
+
+				// Comprobar si se ha encontrado un objeto interactuable
+				if ('objetoInteractuable' in objeto.userData)
+				{
+					// Llamar a su método de interacción
+					objeto.userData.objetoInteractuable.interactuar(modoActual, null);
+				}
 			}
 		}
+	}
+
+	/**
+	 * Mueve la cámara al puntoCamara del ObjetoExaminable proporcionado
+	 * 
+	 * @param {ObjetoExaminable} El objeto al que acercar la cámara
+	 */
+	this.examinarObjeto = function(objeto)
+	{
+		if (objetoExaminando === null)
+		{
+			// Almacenar la posición actual de la cámara
+			posicionInicialCamara = {posicion: camera.position, rotacion: camera.rotation};
+		}
+
+		// Desactivar controles
+		orbitControls.enabled = false;
+		interaccionActivada = false;
+
+		// Interpolar 
+		var puntoCamaraInicial = {
+			x: camera.position.x,
+			y: camera.position.y,
+			z: camera.position.z,
+
+			rx: camera.rotation.x,
+			ry: camera.rotation.y,
+			rz: camera.rotation.z
+		};
+
+		var puntoCamara = objeto.obtenerPuntoCamara();
+
+		var posFinal = new THREE.Vector3();
+		posFinal.setFromMatrixPosition(puntoCamara.matrixWorld);
+		var rotFinal = new THREE.Euler();
+		rotFinal.setFromRotationMatrix(puntoCamara.matrixWorld);
+		var puntoCamaraFinal = {
+			x: posFinal.x,
+			y: posFinal.y,
+			z: posFinal.z,
+
+			rx: rotFinal.x,
+			ry: rotFinal.y,
+			rz: rotFinal.z
+		};
+
+		var tiempoInterpolacion = 1000;
+
+		this.interpoladorCamara = new TWEEN.Tween(puntoCamaraInicial).to(puntoCamaraFinal, tiempoInterpolacion)
+			.onUpdate(function(){
+				camera.position.set(puntoCamaraInicial.x, puntoCamaraInicial.y, puntoCamaraInicial.z);
+				camera.rotation.set(puntoCamaraInicial.rx, puntoCamaraInicial.ry, puntoCamaraInicial.rz);
+			})
+			.easing(TWEEN.Easing.Quadratic.InOut)
+			.onComplete(function(){
+				interaccionActivada = true;
+			})
+			.start();
 	}
 
 	init(this, renderer);

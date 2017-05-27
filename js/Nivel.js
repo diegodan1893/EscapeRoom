@@ -56,7 +56,11 @@ Nivel = function(juego)
 		var modeloEsfera = new THREE.Mesh(new THREE.SphereGeometry(5, 32, 32),
 										  new THREE.MeshLambertMaterial({color: 0x0000aa}));
 		var funcionEsfera = function(a, b, c){alert("Esfera");};
-		var esfera = new ObjetoInteractuable(modeloEsfera, funcionEsfera);
+		var puntoEsfera = new THREE.Object3D();
+		puntoEsfera.rotateY(90 * (Math.PI/180));
+		puntoEsfera.translateZ(30);
+		puntoEsfera.updateMatrix();
+		var esfera = new ObjetoExaminable(modeloEsfera, funcionEsfera, puntoEsfera, juego);
 		esfera.translateY(40);
 		esfera.translateZ(-30);
 		esfera.translateX(10);

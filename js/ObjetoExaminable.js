@@ -20,6 +20,7 @@ ObjetoExaminable = function(modelo, funcionInteraccion, puntoCamara, juego, obje
     this.juego = juego;
     this.puntoCamara = puntoCamara;
 
+    this.intermedio.add(puntoCamara);
 };
 
 ObjetoExaminable.prototype = Object.create(ObjetoInteractuable.prototype);
@@ -30,9 +31,14 @@ ObjetoExaminable.prototype.interactuar = function(modo, objetoSeleccionado)
     var resultado = false;
 
     if (modo == Juego.Modo.INVESTIGANDO)
-        juego.moverCamara(this.puntoCamara);
+        juego.examinarObjeto(this);
     else if (modo == Juego.Modo.EXAMINANDO)
         resultado = ObjetoInteractuable.prototype.interactuar.apply(this, modo,objetoSeleccionado);
 
     return resultado;
 };
+
+ObjetoExaminable.prototype.obtenerPuntoCamara = function()
+{
+    return this.puntoCamara;
+}
