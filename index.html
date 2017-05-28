@@ -54,8 +54,6 @@
         </div>
 
         <!-- HUD -->
-        <div id="oscurecer" class="no-select"></div>
-
         <!-- Botón para dejar de examinar -->
         <div id="boton-salir-examinar" class="no-select">
             <button class="w3-btn w3-blue w3-xlarge" onclick="juego.dejarDeExaminar()">
@@ -82,7 +80,8 @@
         </div>
 
         <!-- Interfaz de los diálogos -->
-        <div id="dialogo" class="no-select w3-panel w3-black w3-round-xxlarge">
+        <div id="oscurecer" class="no-select" onclick="onMouseDownDialogo()"></div>
+        <div id="dialogo" class="no-select w3-panel w3-black w3-round-xxlarge" onclick="onMouseDownDialogo();">
             <p id="texto-dialogo"></p>
             <i id="dialogo-siguiente" class="material-icons">expand_more</i>
         </div>

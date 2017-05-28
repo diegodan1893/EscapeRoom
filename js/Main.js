@@ -93,7 +93,6 @@ $(function(){
 	// Configurar los eventos de ratón
 	document.getElementById("WebGL-output").addEventListener("mousedown", onMouseDown);
 	document.getElementById("WebGL-output").addEventListener("mouseup", onMouseUp);
-	document.addEventListener("mousedown", onMouseDownDialogo);
 
 	// Crear la escena
 	juego = new Juego(renderer.domElement);
