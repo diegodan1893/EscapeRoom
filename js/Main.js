@@ -101,6 +101,9 @@ $(function(){
 		$("#cargador").fadeOut(400);
 	}
 
+	// Ocultar los elementos de precarga
+	$("#precarga").hide();
+
 	// Desactivar pantalla de carga temporalmente
 	$("#cargador").fadeOut(0);
 });
