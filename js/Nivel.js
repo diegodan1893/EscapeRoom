@@ -45,7 +45,13 @@ Nivel = function(juego)
 		// Cubo
 		var modeloCubo = new THREE.Mesh(new THREE.BoxGeometry(5, 5, 5),
 										new THREE.MeshLambertMaterial({color: 0xaa0000}));
-		var funcionCubo = function(a, b, c){alert("Cubo");};
+		var funcionCubo = function(a, b, c)
+		{
+			a.juego.iniciarDialogo([
+				"Es un cubo de color rojo.",
+				"Puede que me sirva para algo, será mejor que lo guarde."
+			]);
+		};
 		var objetoCubo = new ObjetoInventario("Cubo", "imgs/inventario/test.png");
 		var cubo = new ObjetoRecogible(modeloCubo, funcionCubo, objetoCubo, juego);
 		cubo.translateY(40);
@@ -56,7 +62,12 @@ Nivel = function(juego)
 		// Esfera
 		var modeloEsfera = new THREE.Mesh(new THREE.SphereGeometry(5, 32, 32),
 										  new THREE.MeshLambertMaterial({color: 0x0000aa}));
-		var funcionEsfera = function(a, b, c){alert("Esfera");};
+		var funcionEsfera = function(a, b, c)
+		{
+			a.juego.iniciarDialogo([
+				"Es una esfera de color azul."
+			]);
+		};
 		var puntoEsfera = new THREE.Object3D();
 		puntoEsfera.rotateY(90 * (Math.PI/180));
 		puntoEsfera.translateZ(30);
@@ -70,7 +81,13 @@ Nivel = function(juego)
 		// Subcubo
 		var modeloCubo = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3),
 										new THREE.MeshLambertMaterial({color: 0x00aa00}));
-		var funcionCubo = function(a, b, c){alert("Subcubo");};
+		var funcionCubo = function(a, b, c)
+		{
+			a.juego.iniciarDialogo([
+				"Es un pequeño cubo de color verde que estaba detrás de la esfera.",
+				"Me lo llevo, por si acaso sirve para algo más adelante."
+			]);
+		};
 		var objetoCubo = new ObjetoInventario("Subcubo", "imgs/inventario/test2.png");
 		var cubo = new ObjetoRecogible(modeloCubo, funcionCubo, objetoCubo, juego);
 		cubo.translateZ(-7);

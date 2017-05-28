@@ -27,15 +27,15 @@ ObjetoRecogible.prototype.constructor = ObjetoRecogible;
 ObjetoRecogible.prototype.interactuar = function(modo, objetoSeleccionado)
 {
     var resultado = false;
+
+    resultado = ObjetoInteractuable.prototype.interactuar.call(this, modo, objetoSeleccionado);
     
     if (this.objetoActivacion === null || objetoSeleccionado === this.objetoActivacion)
     {
-        juego.darObjeto(this.objetoARecoger);
+        this.juego.darObjeto(this.objetoARecoger);
         this.parent.remove(this);
-        juego.visualizarObjeto(this.modelo);
+        this.juego.visualizarObjeto(this.modelo);
     }
-
-    resultado = ObjetoInteractuable.prototype.interactuar.call(this, modo, objetoSeleccionado);
 
     return resultado;
 };

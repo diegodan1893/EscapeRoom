@@ -19,6 +19,11 @@ Juego = function(renderer)
 	// Visor de objetos
 	var visor = null;
 	var mostrarVisor = false;
+	var pendienteDeVisualizar = null;
+
+	// Gestor de diálogos
+	var modoAnterior;
+	var dialogo = new Dialogo();
 
 	/**
 	 * Crear la cámara
@@ -44,16 +49,16 @@ Juego = function(renderer)
 	};
 
 	/** Crear la escena */
-	var crearNivel = function()
+	var crearNivel = function(self)
 	{
-        var nivel = new Nivel(this);
+        var nivel = new Nivel(self);
         return nivel;
 	};
 
 	var init = function(self, renderer)
 	{
 		createCamera(self, renderer);
-		nivel = crearNivel();
+		nivel = crearNivel(self);
 		self.add(nivel);
 	};
 
@@ -274,7 +279,7 @@ Juego = function(renderer)
 	this.darObjeto = function(objeto)
 	{
 		inventario.darObjeto(objeto);
-		this.actualizarInterfaz();
+		this.actualizarInterfazInventario();
 	};
 
 	/**
@@ -285,25 +290,25 @@ Juego = function(renderer)
 	this.eliminarObjeto = function(objeto)
 	{
 		inventario.eliminarObjeto(objeto);
-		this.actualizarInterfaz();
+		this.actualizarInterfazInventario();
 	};
 
 	this.seleccionarSiguiente = function()
 	{
 		inventario.seleccionarSiguiente();
-		this.actualizarInterfaz();
+		this.actualizarInterfazInventario();
 	}
 
 	this.seleccionarAnterior = function()
 	{
 		inventario.seleccionarAnterior();
-		this.actualizarInterfaz();
+		this.actualizarInterfazInventario();
 	}
 
 	/**
 	 * Actualizar los elementos de la interfaz
 	 */
-	this.actualizarInterfaz = function()
+	this.actualizarInterfazInventario = function()
 	{
 		if (inventario.vacio())
 			$("#inventario").fadeOut(400);
@@ -332,19 +337,24 @@ Juego = function(renderer)
 	 */
 	this.visualizarObjeto = function(objeto, distancia = 20)
 	{
-		visor = new VisorObjetos(renderer, objeto, distancia);
-		mostrarVisor = true;
+		if (modoActual !== Juego.Modo.DIALOGO)
+		{
+			visor = new VisorObjetos(renderer, objeto, distancia);
+			mostrarVisor = true;
 
-		// Desactivar control
-		interaccionActivada = false;
-		orbitControls.enabled = false;
+			// Desactivar control
+			interaccionActivada = false;
+			orbitControls.enabled = false;
 
-		$("#boton-aceptar").fadeIn(400);
+			$("#boton-aceptar").fadeIn(400);
 
-		if (modoActual == Juego.Modo.EXAMINANDO)
-			$("#boton-salir-examinar").fadeOut(400);
+			if (modoActual == Juego.Modo.EXAMINANDO)
+				$("#boton-salir-examinar").fadeOut(400);
 
-		$("#inventario").fadeOut(400);
+			$("#inventario").fadeOut(400);
+		}
+		else
+			pendienteDeVisualizar = {objeto: objeto, distancia: distancia};
 	}
 
 	/**
@@ -368,6 +378,90 @@ Juego = function(renderer)
 			$("#inventario").fadeIn(400);
 	}
 
+	// Gestor de diálogos
+	/**
+	 * Inicia un diálogo
+	 * 
+	 * @param {Array} Array con las líneas del diálogo
+	 */
+	this.iniciarDialogo = function(texto)
+	{
+		if (modoActual !== Juego.Modo.DIALOGO)
+		{
+			// Ocultar otros elementos
+			$("#boton-salir-examinar").fadeOut(400);
+			$("#inventario").fadeOut(400);
+
+			// Cambiar a modo diálogo
+			modoAnterior = modoActual;
+			modoActual = Juego.Modo.DIALOGO;
+
+			// Desactivar los controles
+			interaccionActivada = false;
+			orbitControls.enabled = false;
+
+			// Iniciar el diálogo
+			dialogo.nuevoDialogo(texto);
+			document.getElementById("texto-dialogo").innerHTML = dialogo.linea();
+
+			// Mostrar la interfaz
+			$("#oscurecer").fadeIn(400);
+			$("#dialogo").fadeIn(400);
+		}
+	}
+
+	/**
+	 * Avanza el diálogo a la siguiente línea
+	 */
+	this.pasarDialogo = function()
+	{
+		if (modoActual === Juego.Modo.DIALOGO)
+		{
+			var fin = dialogo.pasarLinea();
+
+			if (fin)
+			{
+				// Cambiar al modo anterior
+				modoActual = modoAnterior;
+
+				// Activar la interacción
+				orbitControls.enabled = modoActual == Juego.Modo.INVESTIGANDO;
+				interaccionActivada = true;
+
+				// Ocultar el diálogo
+				$("#oscurecer").fadeOut(400);
+				$("#dialogo").fadeOut(400);
+
+				// Mostrar el botón de salir si es necesario
+				if (modoActual == Juego.Modo.EXAMINANDO)
+					$("#boton-salir-examinar").fadeIn(400);
+				
+				// Mostrar el inventario si es necesario
+				if (!inventario.vacio() && pendienteDeVisualizar === null)
+					$("#inventario").fadeIn(400);
+
+				// Visualizar objeto pendiente
+				if (pendienteDeVisualizar !== null)
+				{
+					this.visualizarObjeto(pendienteDeVisualizar.objeto, pendienteDeVisualizar.distancia);
+					pendienteDeVisualizar = null;
+				}
+			}
+			else
+			{
+				document.getElementById("texto-dialogo").innerHTML = dialogo.linea();
+			}
+		}
+	}
+
+	/**
+	 * Devuelve el modo actual
+	 */
+	this.obtenerModoActual = function()
+	{
+		return modoActual;
+	}
+
 	init(this, renderer);
 };
 
@@ -377,5 +471,6 @@ Juego.prototype.constructor = Juego;
 // Enum de modos o lo que sea
 Juego.Modo = {
 	INVESTIGANDO : 0,
-	EXAMINANDO : 1
+	EXAMINANDO : 1,
+	DIALOGO : 2
 }
