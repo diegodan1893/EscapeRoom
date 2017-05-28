@@ -7,7 +7,7 @@
  * @param {FuncionInteraccion} funcionInteraccion Función utilizada para la interacción.
  * @param {ObjetoInventario} objetoActivacion Objeto utilizado para interactuar con el entorno.
  */
-ObjetoInteractuable = function(modelo, funcionInteraccion, objetoActivacion = null)
+ObjetoInteractuable = function(modelo, funcionInteraccion, juego, objetoActivacion = null)
 {
     // Llamar al super
 	THREE.Object3D.call(this);
@@ -16,6 +16,7 @@ ObjetoInteractuable = function(modelo, funcionInteraccion, objetoActivacion = nu
 	this.intermedio = new THREE.Object3D();
     this.modelo = modelo;
 	this.funcionInteraccion = funcionInteraccion;
+    this.juego = juego;
     this.objetoActivacion = objetoActivacion;
     this.estado = {};
 
