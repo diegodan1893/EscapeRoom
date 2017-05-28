@@ -90,6 +90,30 @@
     overflow: hidden;
 }
 
+#dialogo {
+    display: none;
+
+    position: fixed;
+    bottom: 10%;
+    left: 12.5%;
+    width: 75%;
+    z-index: 25;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 3%;
+    padding-right: 3%;
+    opacity: 0.7;
+
+    font-size: 1.2em;
+}
+
+#dialogo-siguiente {
+    position: absolute;
+    bottom: 2%;
+    right: 48%;
+    z-index: 26;
+}
+
 .centrar {
     line-height: 150px !important;
 }

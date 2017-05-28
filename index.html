@@ -45,8 +45,9 @@
 
         <!-- Precarga de elementos -->
         <div id="precarga" class="no-select">
-            <i class="material-icons centrar">arrow_back</i>
-            <i class="material-icons centrar">arrow_forward</i>
+            <i class="material-icons">arrow_back</i>
+            <i class="material-icons">arrow_forward</i>
+            <i class="material-icons">expand_more</i>
             <img src="imgs/inventario/test.png">
             <img src="imgs/inventario/test2.png">
         </div>
@@ -61,12 +62,14 @@
             </button>
         </div>
 
+        <!-- Botón para salir del visor de objetos -->
         <div id="boton-aceptar" class="no-select">
             <button class="w3-btn w3-blue w3-xlarge" onclick="juego.ocultarVisorObjetos()">
                 Aceptar
             </button>
         </div>
 
+        <!-- Interfaz del inventario -->
         <div id="inventario" class="no-select">
             <div id="inventario-izq" class="w3-blue w3-hover-shadow w3-center" onclick="juego.seleccionarAnterior()">
                 <i class="material-icons centrar">arrow_back</i>
@@ -75,6 +78,12 @@
             <div id="inventario-der" class="w3-blue w3-hover-shadow w3-center" onclick="juego.seleccionarSiguiente()">
                 <i class="material-icons centrar">arrow_forward</i>
                 </div>
+        </div>
+
+        <!-- Interfaz de los diálogos -->
+        <div id="dialogo" class="no-select w3-panel w3-black w3-round-xxlarge">
+            <p id="texto-dialogo"></p>
+            <i id="dialogo-siguiente" class="material-icons">expand_more</i>
         </div>
     </body>
 </html>
