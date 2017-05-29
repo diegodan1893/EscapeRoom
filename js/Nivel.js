@@ -101,12 +101,24 @@ Nivel = function(juego)
 
 		var modeloCama;
 		var cargadorObjetos = new THREE.OBJLoader2();
-		
-		cargadorObjetos.load("models/Bed.obj", function(objeto)
+		var cargadorMTL = new THREE.MTLLoader();
+		cargadorMTL.load("models/Bed/cama.mtl", function(material)
 		{
-			modeloCama = objeto;
+			material.preload();
+			cargadorObjetos.setMaterials(material);
+			cargadorObjetos.load("models/Bed/cama.obj", function(objeto)
+			{
+				modeloCama = objeto;
+				//objeto.material = new THREE.MeshLambertMaterial({color: 0x00aa00});
+				//objeto.material.needsUpdate = true;
 
-			objetos.add(modeloCama);
+				modeloCama.scale.set(3.5, 3.5, 3.5);
+				//modeloCama.updateMatrix();
+				modeloCama.translateX(100);
+				modeloCama.rotateY(90 * Math.PI/180);
+
+				objetos.add(modeloCama);
+			});
 		});
 		
 		return objetos;
