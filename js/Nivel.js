@@ -98,6 +98,16 @@ Nivel = function(juego)
 		var cubo = new ObjetoRecogible(modeloCubo, funcionCubo, objetoCubo, juego);
 		cubo.translateZ(-7);
 		esfera.insertarSubobjeto(cubo);
+
+		var modeloCama;
+		var cargadorObjetos = new THREE.OBJLoader2();
+		
+		cargadorObjetos.load("models/Bed.obj", function(objeto)
+		{
+			modeloCama = objeto;
+
+			objetos.add(modeloCama);
+		});
 		
 		return objetos;
 	};
