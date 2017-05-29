@@ -100,22 +100,25 @@ Nivel = function(juego)
 		esfera.insertarSubobjeto(cubo);
 
 		var modeloCama;
-		var cargadorObjetos = new THREE.OBJLoader2();
 		var cargadorMTL = new THREE.MTLLoader();
-		cargadorMTL.load("models/Bed/cama.mtl", function(material)
+		cargadorMTL.setPath("models/Desk/");
+		cargadorMTL.load("Desk.mtl", function(material)
 		{
 			material.preload();
+			
+			var cargadorObjetos = new THREE.OBJLoader();
 			cargadorObjetos.setMaterials(material);
-			cargadorObjetos.load("models/Bed/cama.obj", function(objeto)
+			cargadorObjetos.setPath("models/Desk/");
+			cargadorObjetos.load("Desk.obj", function(objeto)
 			{
 				modeloCama = objeto;
 				//objeto.material = new THREE.MeshLambertMaterial({color: 0x00aa00});
 				//objeto.material.needsUpdate = true;
 
-				modeloCama.scale.set(3.5, 3.5, 3.5);
+				modeloCama.scale.set(18, 18, 18);
 				//modeloCama.updateMatrix();
 				modeloCama.translateX(100);
-				modeloCama.rotateY(90 * Math.PI/180);
+				modeloCama.rotateY(-90 * Math.PI/180);
 
 				objetos.add(modeloCama);
 			});

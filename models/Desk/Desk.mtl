@@ -8,7 +8,7 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 1
-map_Kd Texture\\Desk_black.tga
+map_Kd Texture/Desk_black.png
 
 
 newmtl Desk_metal
@@ -19,7 +19,7 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 1
-map_Kd Texture\\Desk_metal.tga
+map_Kd Texture/Desk_metal.png
 
 
 newmtl Desk_wood
@@ -30,6 +30,6 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 1
-map_Kd Texture\\Desk_wood.tga
+map_Kd Texture/Desk_wood.png
 
 
