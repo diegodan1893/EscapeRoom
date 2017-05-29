@@ -47,6 +47,12 @@ Nivel = function(juego)
 										new THREE.MeshLambertMaterial({color: 0xaa0000}));
 		var funcionCubo = function(a, b, c)
 		{
+			if (b == Juego.Modo.TUTORIAL)
+			{
+				a.juego.terminarTutorial();
+				a.juego.iniciarDialogo(["Tutorial"]);
+			}
+			else
 			a.juego.iniciarDialogo([
 				"Es un cubo de color rojo.",
 				"Puede que me sirva para algo, será mejor que lo guarde."
