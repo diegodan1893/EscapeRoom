@@ -7,7 +7,7 @@ Juego = function(renderer)
 	var orbitControls = null;
 
 	var nivel = null;
-	var modoActual = Juego.Modo.INVESTIGANDO;
+	var modoActual = Juego.Modo.TUTORIAL;
 	var objetoExaminando = null;
 	var posicionInicialCamara = null;
 
@@ -465,6 +465,14 @@ Juego = function(renderer)
 		return modoActual;
 	}
 
+	/**
+	 * Terminar tutorial
+	 */
+	this.terminarTutorial = function()
+	{
+		modoActual = Juego.Modo.INVESTIGANDO;
+	}
+
 	init(this, renderer);
 };
 
@@ -475,5 +483,6 @@ Juego.prototype.constructor = Juego;
 Juego.Modo = {
 	INVESTIGANDO : 0,
 	EXAMINANDO : 1,
-	DIALOGO : 2
+	DIALOGO : 2,
+	TUTORIAL : 3
 }
