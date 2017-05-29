@@ -432,13 +432,16 @@ Juego = function(renderer)
 				$("#oscurecer").fadeOut(400);
 				$("#dialogo").fadeOut(400);
 
-				// Mostrar el botón de salir si es necesario
-				if (modoActual == Juego.Modo.EXAMINANDO)
-					$("#boton-salir-examinar").fadeIn(400);
-				
-				// Mostrar el inventario si es necesario
-				if (!inventario.vacio() && pendienteDeVisualizar === null)
-					$("#inventario").fadeIn(400);
+				if (pendienteDeVisualizar === null)
+				{
+					// Mostrar el botón de salir si es necesario
+					if (modoActual == Juego.Modo.EXAMINANDO)
+						$("#boton-salir-examinar").fadeIn(400);
+					
+					// Mostrar el inventario si es necesario
+					if (!inventario.vacio())
+						$("#inventario").fadeIn(400);
+				}
 
 				// Visualizar objeto pendiente
 				if (pendienteDeVisualizar !== null)
