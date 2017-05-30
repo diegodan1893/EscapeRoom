@@ -149,6 +149,25 @@ Nivel = function(juego)
 		return puerta;
 	}
 
+	var crearCajaFuerte = function()
+	{
+		var modeloCaja = new THREE.Object3D();
+		var parteMovil = new THREE.Object3D();
+		var caja = new THREE.Mesh(new THREE.BoxGeometry(25, 20, 15),
+								  new THREE.MeshLambertMaterial({color: 0xcfcfcf}));
+
+		
+		
+		var funcionCaja = function()
+		{
+
+		}
+
+		var cajaFuerte = new ObjetoInteractuable(caja, funcionCaja, juego);
+
+		return cajaFuerte;
+	}
+
 	var crearEscritorio = function(objetos)
 	{
 		var funcionEscritorio = function(objeto, modo, objetoSeleccionado)
@@ -185,7 +204,7 @@ Nivel = function(juego)
 				modeloEscritorio.scale.set(25, 22, 25);
 
 				var puntoCamara = new THREE.Object3D();
-				puntoCamara.position.x = -60;
+				puntoCamara.position.x = -50;
 				puntoCamara.position.y = 60;
 				puntoCamara.position.z = 50;
 				puntoCamara.rotation.y = -Math.PI / 4;
@@ -193,6 +212,13 @@ Nivel = function(juego)
 				var escritorio = new ObjetoExaminable(modeloEscritorio, funcionEscritorio, puntoCamara, juego);
 				escritorio.position.x = 100;
 				escritorio.position.z = -100;
+				
+				var cajaFuerte = crearCajaFuerte();
+				cajaFuerte.rotation.y = -Math.PI/2;
+				cajaFuerte.position.x = 20;
+				cajaFuerte.position.y = 50;
+				cajaFuerte.position.z = 30;
+				escritorio.insertarSubobjeto(cajaFuerte);
 
 				objetos.add(escritorio);
 			});

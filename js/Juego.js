@@ -425,7 +425,7 @@ Juego = function(renderer)
 				modoActual = modoAnterior;
 
 				// Activar la interacción
-				orbitControls.enabled = modoActual == Juego.Modo.INVESTIGANDO || Juego.Modo.TUTORIAL;
+				orbitControls.enabled = modoActual == Juego.Modo.INVESTIGANDO || modoActual == Juego.Modo.TUTORIAL;
 				interaccionActivada = true;
 
 				// Ocultar el diálogo
