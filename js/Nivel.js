@@ -209,7 +209,7 @@ Nivel = function(juego)
 		return puerta;
 	}
 
-	var crearCajaFuerte = function()
+	var crearCajaFuerte = function(combinacionInventario)
 	{
 		var modeloCaja = new THREE.Object3D();
 		var puerta = new THREE.Object3D();
@@ -288,7 +288,7 @@ Nivel = function(juego)
 			return tirar;
 		}
 
-		var cajaFuerte = new ObjetoInteractuable(modeloCaja, funcionCaja, juego);
+		var cajaFuerte = new ObjetoInteractuable(modeloCaja, funcionCaja, juego, combinacionInventario);
 
 		return cajaFuerte;
 	}
@@ -297,7 +297,12 @@ Nivel = function(juego)
 	{
 		var funcionLlave = function(objeto, modo, objetoSeleccionado)
 		{
-
+			objeto.juego.iniciarDialogo([
+				"He encontrado una llave.",
+				"Sorprendentemente, se parece a una llave.",
+				"Aún no me creo lo bien hecha que está la llave después de ver la cama.",
+				"Me quedo con la llave. Pocos días se pueden ver algo tan bello."
+			]);
 		}
 
 		var anillo = new THREE.Mesh(
@@ -339,10 +344,16 @@ Nivel = function(juego)
 		var funcionEscritorio = function(objeto, modo, objetoSeleccionado)
 		{
 			if(modo !== Juego.Modo.TUTORIAL){
-				objeto.juego.iniciarDialogo([
-					"Es un escritorio. Tiene una caja fuerte y cajones que no se abren.",
-					"No se abren porque están cerrados con la llave de la falta de tiempo."
-				]);
+				if(objetoSeleccionado === llaveInventario){
+					objeto.juego.iniciarDialogo([
+					"Lo de la llave del tiempo era una metáfora. No se van a abrir."
+					]);
+				}else{
+					objeto.juego.iniciarDialogo([
+						"Es un escritorio. Tiene una caja fuerte y cajones que no se abren.",
+						"No se abren porque están cerrados con la llave de la falta de tiempo."
+					]);
+				}
 
 			}else{
 				objeto.juego.iniciarDialogo([
@@ -420,7 +431,8 @@ Nivel = function(juego)
 		return nota;
 	}
 
-	var crearCama = function()
+
+	var crearCama = function(combinacionInventario)
 	{
 		var modeloCama = new THREE.Object3D();
 
@@ -470,10 +482,17 @@ Nivel = function(juego)
 		{
 			if(modo !== Juego.Modo.TUTORIAL)
 			{	
-				objeto.juego.iniciarDialogo([
-					"Es una cama. O mejor dicho, se parece a una cama.",
-					"Tengo la sensación de que si me tumbo me romperé cuatro costillas."
+				if(objetoSeleccionado == combinacionInventario){
+					objeto.juego.iniciarDialogo([
+					"¿Deshacerme de la nota que tanto tiempo he tardado en localizar?",
+					"Po' va a ser que no."
 				]);
+				}else{
+					objeto.juego.iniciarDialogo([
+						"Es una cama. O mejor dicho, se parece a una cama.",
+						"Tengo la sensación de que si me tumbo me romperé cuatro costillas."
+					]);
+				}
 					
 			}else{
 				objeto.juego.iniciarDialogo([
