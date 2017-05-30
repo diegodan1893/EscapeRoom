@@ -55,7 +55,7 @@ Nivel = function(juego)
 				]);
 			}{
 				objeto.juego.iniciarDialogo([
-					"Aún a riesgo de que haya algún puzle que use pintura fosforescente, la luz se queda encendida.",
+					"Aun a riesgo de que haya algún puzle que use pintura fosforescente, la luz se queda encendida.",
 					"JAJAJAJAJA. Pintura fosforescente. Como si los desarrolladores supieran hacer eso..."
 				]);
 			}
