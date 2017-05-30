@@ -77,6 +77,48 @@ Nivel = function(juego)
 		return interruptor;
 	}
 
+	var crearPoster = function()
+	{
+		var encendido = false;
+		var funcionPoster = function(objeto, modo, objetoSeleccionado)
+		{
+			if (modo !== Juego.Modo.TUTORIAL)
+			{
+				objeto.juego.iniciarDialogo([
+					"Es un poster del universo.",
+					"Me encantaría que hubieran unos planetas orbitando alrededor, en este fondo.",
+					"Me gustaría tanto, que lo pondría en todos los sitios en los que pudiera.",
+					"Como en una página web de noticias de videojuegos o en la web de un hotel.",
+					"Por poner ejemplos así al azar."
+				]);
+			}else{
+				objeto.juego.iniciarDialogo([
+					"No sé qué está más oscuro, si esta habitación o el poster."
+				]);
+			}
+		}
+
+		var cargadorTextura = new THREE.TextureLoader();
+		this.texturaCargada = cargadorTextura.load("../imgs/fondo.jpg");
+
+		var elPoster = new THREE.Mesh(new THREE.BoxGeometry(70, 45, 0.5),
+											   new THREE.MeshLambertMaterial({color: 0xd1d1d1, 
+												   map: this.texturaCargada
+												})
+											   );
+		var puntoCamara = new THREE.Object3D();
+				puntoCamara.position.z = 50;
+
+
+		var poster = new ObjetoExaminable(elPoster, funcionPoster, puntoCamara, juego);
+
+		poster.position.x = -50;
+		poster.position.y = 50;
+		poster.position.z = -149.5;
+
+		return poster;
+	}
+
 	var crearPuerta = function()
 	{
 		var modeloPuerta = new THREE.Object3D();
@@ -262,6 +304,9 @@ Nivel = function(juego)
 
 		// Interruptor de la luz
 		objetos.add(crearInterruptor());
+
+		//Poster
+		objetos.add(crearPoster());
 
 		// Puerta
 		objetos.add(crearPuerta());
