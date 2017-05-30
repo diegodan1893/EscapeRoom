@@ -297,7 +297,12 @@ Nivel = function(juego)
 	{
 		var funcionLlave = function(objeto, modo, objetoSeleccionado)
 		{
-
+			objeto.juego.iniciarDialogo([
+				"He encontrado una llave.",
+				"Sorprendentemente, se parece a una llave.",
+				"Aún no me creo lo bien hecha que está la llave después de ver la cama.",
+				"Me quedo con la llave. Pocos días se pueden ver algo tan bello."
+			]);
 		}
 
 		var anillo = new THREE.Mesh(
@@ -339,6 +344,11 @@ Nivel = function(juego)
 		var funcionEscritorio = function(objeto, modo, objetoSeleccionado)
 		{
 			if(modo !== Juego.Modo.TUTORIAL){
+				if(objetoSeleccionado === llaveInventario){
+					objeto.juego.iniciarDialogo([
+					"Lo de la llave del tiempo era una metáfora. No se van a abrir."
+				]);
+				}
 				objeto.juego.iniciarDialogo([
 					"Es un escritorio. Tiene una caja fuerte y cajones que no se abren.",
 					"No se abren porque están cerrados con la llave de la falta de tiempo."
@@ -398,7 +408,7 @@ Nivel = function(juego)
 		});
 	}
 
-	var crearCama = function()
+	var crearCama = function(combinacionInventario)
 	{
 		var modeloCama = new THREE.Object3D();
 
@@ -448,6 +458,12 @@ Nivel = function(juego)
 		{
 			if(modo !== Juego.Modo.TUTORIAL)
 			{	
+				if(objetoSeleccionado == combinacionInventario){
+					objeto.juego.iniciarDialogo([
+					"¿Deshacerme de la nota que tanto tiempo he tardado en localizar?",
+					"Po' va a ser que no."
+				]);
+				}
 				objeto.juego.iniciarDialogo([
 					"Es una cama. O mejor dicho, se parece a una cama.",
 					"Tengo la sensación de que si me tumbo me romperé cuatro costillas."
