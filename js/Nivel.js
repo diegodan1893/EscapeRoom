@@ -9,14 +9,15 @@ Nivel = function(juego)
 	// Objetos interactuables
 	this.objetos = new THREE.Object3D();
 
+	var luz;
 	/** Crear las luces */
 	var crearLuces = function(self)
 	{
-		ambientLight = new THREE.AmbientLight(0x282828);
-		pointLight = new THREE.PointLight(0xffffff, 1, 400, 1);
-		pointLight.position.set(50, 50, 50);
+		ambientLight = new THREE.AmbientLight(0x161616);
+		luz = new THREE.PointLight(0xffffff, 0, 400, 1);
+		luz.position.set(50, 50, 50);
 		self.add(ambientLight);
-		self.add(pointLight);
+		self.add(luz);
 	};
 
 	/** Crear los objetos decorativos */
