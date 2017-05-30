@@ -406,18 +406,18 @@ Nivel = function(juego)
 
 		// 25 20 10
 		var cama = new THREE.Mesh(new THREE.BoxGeometry(100, 10, 40),
-								   new THREE.MeshLambertMaterial({color: 0xcfcfcf}));
+								   new THREE.MeshLambertMaterial({color: 0xe60026}));
 		var pataIzqCerca = new THREE.Mesh(new THREE.BoxGeometry(5, 20, 5),
-									  new THREE.MeshLambertMaterial({color: 0xcfcfcf}));
+									  new THREE.MeshLambertMaterial({color: 0x8d4925}));
 		var pataDchaCerca = new THREE.Mesh(new THREE.BoxGeometry(5, 20, 5),
-									  new THREE.MeshLambertMaterial({color: 0xcfcfcf}));
+									  new THREE.MeshLambertMaterial({color: 0x8d4925}));
 		var pataIzqLejos = new THREE.Mesh(new THREE.BoxGeometry(5, 20, 5),
-								   new THREE.MeshLambertMaterial({color: 0xcfcfcf}));
+								   new THREE.MeshLambertMaterial({color: 0x8d4925}));
 		var pataDchaLejos = new THREE.Mesh(new THREE.BoxGeometry(5, 20, 5),
-								   new THREE.MeshLambertMaterial({color: 0xcfcfcf}));
+								   new THREE.MeshLambertMaterial({color: 0x8d4925}));
 					
-		var almohada = new THREE.Mesh(new THREE.BoxGeometry(7, 4, 20),
-								  		  new THREE.MeshLambertMaterial({color: 0xe9e9e9}));
+		var almohada = new THREE.Mesh(new THREE.BoxGeometry(7, 4, 30),
+								  		  new THREE.MeshLambertMaterial({color: 0xffffff}));
 
 		cama.position.y = 10;
 		
