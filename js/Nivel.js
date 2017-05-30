@@ -167,7 +167,6 @@ Nivel = function(juego)
 						abierta = true;
 						var rotacionInicial = {angulo: 0};
 						var rotacionFinal = {angulo:- Math.PI/2};
-						var astro = this.esfera;
 
 						this.interpolador = new TWEEN.Tween(rotacionInicial).to(rotacionFinal, 500)
 							.onUpdate(function(){
@@ -259,11 +258,24 @@ Nivel = function(juego)
 			var tirar = false;
 			if(objeto.objetoActivacion === objetoSeleccionado)
 			{
-				objeto.juego.iniciarDialogo([
-					"He introducido la combinación de la caja fuerte.",
-					"En vista de que no hay papelera, tiraré la combinación al limbo gráfico."
-				]);
-				tirar = true;
+				if(!abierta){
+						abierta = true;
+						var rotacionInicial = {angulo: 0};
+						var rotacionFinal = {angulo:- Math.PI/2};
+
+						this.interpolador = new TWEEN.Tween(rotacionInicial).to(rotacionFinal, 500)
+							.onUpdate(function(){
+								puerta.rotation.y = rotacionInicial.angulo;
+							})
+							.start()
+
+						
+					objeto.juego.iniciarDialogo([
+						"He introducido la combinación de la caja fuerte.",
+						"En vista de que no hay papelera, tiraré la combinación al limbo gráfico."
+					]);
+					tirar = true;
+				}
 			}
 			else
 			{
