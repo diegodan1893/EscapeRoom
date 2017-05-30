@@ -50,6 +50,14 @@ Nivel = function(juego)
 				luz.intensity = 1;
 				objeto.juego.terminarTutorial();
 				encendido = true;
+				objeto.juego.iniciarDialogo([
+					"¡Y se hizo la luz!",
+				]);
+			}{
+				objeto.juego.iniciarDialogo([
+					"Aún a riesgo de que haya algún puzle que use pintura fosforescente, la luz se queda encendida.",
+					"JAJAJAJAJA. Pintura fosforescente. Como si los desarrolladores supieran hacer eso..."
+				]);
 			}
 		}
 
@@ -111,26 +119,37 @@ Nivel = function(juego)
 
 			if(modo !== Juego.Modo.TUTORIAL){
 
-				//Suponiendo que hemos conseguido la llave
-				if(!abierta){
-					abierta = true;
-					var rotacionInicial = {angulo: 0};
-					var rotacionFinal = {angulo:- Math.PI/2};
-					var astro = this.esfera;
+				if(objeto.objetoActivacion === objetoSeleccionado){
+					//Suponiendo que hemos conseguido la llave
+					if(!abierta){
+						abierta = true;
+						var rotacionInicial = {angulo: 0};
+						var rotacionFinal = {angulo:- Math.PI/2};
+						var astro = this.esfera;
 
-					this.interpolador = new TWEEN.Tween(rotacionInicial).to(rotacionFinal, 500)
-						.onUpdate(function(){
-							parteMovil.rotation.y = rotacionInicial.angulo;
-						})
-						.start()
+						this.interpolador = new TWEEN.Tween(rotacionInicial).to(rotacionFinal, 500)
+							.onUpdate(function(){
+								parteMovil.rotation.y = rotacionInicial.angulo;
+							})
+							.start()
 
+						objeto.juego.iniciarDialogo([
+						"Tú: ¿¡CÓMO!?",
+						"Tú: ¡PERO DETRÁS DE LA PUERTA HAY MÁS PARED!",
+						"Tú: ¿Cómo quieren que salga de algo que no tiene salida?",
+						"Y te moriste FIN."
+					]);
+
+					}
+				}else{
 					objeto.juego.iniciarDialogo([
-					"Tú: ¿¡CÓMO!?",
-					"Tú: ¡PERO DETRÁS DE LA PUERTA HAY MÁS PARED!",
-					"Tú: ¿Cómo quieren que salga de algo que no tiene salida?",
-					"Y te moriste FIN."
-				]);
-
+						"Es una puerta. Está cerrada.",
+						"¿Qué gracia tendría un juego de Escape Room que tuviera la puerta abierta?",
+						"Ah, pues ahora que caigo, no son pocos los juegos que dejan la puerta abierta.",
+						"...",
+						"Mi contradicción no ha dejado a la puerta DESCOLOCADA.",
+						"*badumtss*"
+					]);
 				}
 
 			}else{
@@ -192,9 +211,20 @@ Nivel = function(juego)
 		puerta.translateX(-23/2);
 		puerta.translateZ(3);
 		
-		var funcionCaja = function()
+		var funcionCaja = function(objeto, modo, objetoSeleccionado)
 		{
-
+			if(objeto.objetoActivacion === objetoSeleccionado){
+				objeto.juego.iniciarDialogo([
+					"He introducido la combinación de la caja fuerte.",
+					"En vista de que no hay papelera, tiraré la combinación al limbo gráfico."
+				]);
+				//Se pierde la combinación
+			}else{
+				objeto.juego.iniciarDialogo([
+					"Es una caja fuerte. Hace falta una combinación para abrirla.",
+					"O también podemos optar por mucha dinamita."
+				]);
+			}
 		}
 
 		var cajaFuerte = new ObjetoInteractuable(modeloCaja, funcionCaja, juego);
