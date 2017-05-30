@@ -11,13 +11,14 @@
  */
 
 
-ObjetoRecogible = function(modelo, funcionInteraccion, objetoRecoger, juego, objetoActivacion = null)
+ObjetoRecogible = function(modelo, funcionInteraccion, objetoRecoger, juego, distancia = 20, objetoActivacion = null)
 {
     // Llamar al super
     ObjetoInteractuable.call(this, modelo, funcionInteraccion, juego, objetoActivacion);
 
     // Variables
     this.objetoARecoger = objetoRecoger;
+    this.distancia = distancia;
 
 };
 
@@ -34,7 +35,7 @@ ObjetoRecogible.prototype.interactuar = function(modo, objetoSeleccionado)
     {
         this.juego.darObjeto(this.objetoARecoger);
         this.parent.remove(this);
-        this.juego.visualizarObjeto(this.modelo);
+        this.juego.visualizarObjeto(this.modelo, this.distancia);
     }
 
     return resultado;
