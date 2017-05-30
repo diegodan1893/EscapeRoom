@@ -72,7 +72,8 @@ Nivel = function(juego)
 	var crearPuerta = function()
 	{
 		var modeloPuerta = new THREE.Object3D();
-		var parteMovil = new THREE.Mesh(new THREE.BoxGeometry(50, 85, 2),
+		var parteMovil = new THREE.Object3D();
+		var madera = new THREE.Mesh(new THREE.BoxGeometry(50, 85, 2),
 										new THREE.MeshLambertMaterial({color: 0x6c4226}));
 		
 		var marco1 = new THREE.Mesh(new THREE.BoxGeometry(5, 85, 2),
@@ -84,23 +85,28 @@ Nivel = function(juego)
 		var pomo = new THREE.Mesh(new THREE.CylinderGeometry(3, 3, 2),
 								  new THREE.MeshLambertMaterial({color: 0xcca00b}));
 
+		madera.position.x = 50/2;
+
 		marco1.position.x = 50/2 + 5/2;
 		marco2.position.x = -(50/2 + 5/2);
 		marco3.position.y = 85/2 + 5/2;
 
 		pomo.rotation.x = Math.PI / 2;
-		pomo.position.x = 20;
+		pomo.position.x = 20 + 50/2;
 		pomo.position.z = 1;
 
 		modeloPuerta.add(parteMovil);
 		parteMovil.add(pomo);
+		parteMovil.add(madera);
 		modeloPuerta.add(marco1);
 		modeloPuerta.add(marco2);
 		modeloPuerta.add(marco3);
 
+		parteMovil.translateX(-50/2);
+
 		var funcionPuerta = function(objeto, modo, objetoSeleccionado)
 		{
-
+			
 		}
 		
 		var puerta = new ObjetoInteractuable(modeloPuerta, funcionPuerta, juego);
@@ -110,6 +116,43 @@ Nivel = function(juego)
 		puerta.position.z = 148;
 
 		return puerta;
+	}
+
+	var crearEscritorio = function(objetos)
+	{
+		var funcionEscritorio = function(objeto, modo, objetoSeleccionado)
+		{
+
+		}
+
+		var cargadorMTL = new THREE.MTLLoader();
+		cargadorMTL.setPath("models/Desk/");
+
+		cargadorMTL.load("Desk.mtl", function(materiales)
+		{
+			materiales.preload();
+			
+			var cargadorObjetos = new THREE.OBJLoader();
+			cargadorObjetos.setMaterials(materiales);
+			cargadorObjetos.setPath("models/Desk/");
+
+			cargadorObjetos.load("Desk.obj", function(modeloEscritorio)
+			{
+				modeloEscritorio.scale.set(25, 22, 25);
+
+				var puntoCamara = new THREE.Object3D();
+				puntoCamara.position.x = -60;
+				puntoCamara.position.y = 60;
+				puntoCamara.position.z = 50;
+				puntoCamara.rotation.y = -Math.PI / 4;
+
+				var escritorio = new ObjetoExaminable(modeloEscritorio, funcionEscritorio, puntoCamara, juego);
+				escritorio.position.x = 100;
+				escritorio.position.z = -100;
+
+				objetos.add(escritorio);
+			});
+		});
 	}
 
 	/** Crear los objetos interactuables */
@@ -122,6 +165,9 @@ Nivel = function(juego)
 
 		// Puerta
 		objetos.add(crearPuerta());
+
+		// Escritorio
+		crearEscritorio(objetos);
 
 		return objetos;
 	};

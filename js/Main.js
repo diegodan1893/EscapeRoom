@@ -111,7 +111,7 @@ $(function(){
 	$("#precarga").hide();
 
 	// Desactivar pantalla de carga temporalmente
-	$("#cargador").fadeOut(0);
+	//$("#cargador").fadeOut(0);
 
 	juego.iniciarDialogo([
 		"Tú: Agh.... Ay... Todo me da vueltas... con el ratón...",
