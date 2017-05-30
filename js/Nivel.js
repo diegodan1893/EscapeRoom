@@ -86,7 +86,7 @@ Nivel = function(juego)
 			{
 				objeto.juego.iniciarDialogo([
 					"Es un poster del universo.",
-					"Me encantaría que hubieran unos planetas orbitando alrededor, en este fondo.",
+					"Me encantaría que hubiera unos planetas orbitando alrededor, en este fondo.",
 					"Me gustaría tanto, que lo pondría en todos los sitios en los que pudiera.",
 					"Como en una página web de noticias de videojuegos o en la web de un hotel.",
 					"Por poner ejemplos así al azar."
