@@ -483,6 +483,7 @@ Nivel = function(juego)
 
 		// Objetos inventario
 		var llaveInventario = new ObjetoInventario("Llave", "imgs/inventario/llave.png");
+		var combinacionInventario = new ObjetoInventario("Combinación", "imgs/1031.png");
 
 		// Interruptor de la luz
 		objetos.add(crearInterruptor());
