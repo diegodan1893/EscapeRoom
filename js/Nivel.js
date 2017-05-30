@@ -417,14 +417,12 @@ Nivel = function(juego)
 		}
 
 		var cargadorTextura = new THREE.TextureLoader();
-		this.texturaCargada = cargadorTextura.load("../imgs/1031.jpg");
+		this.texturaCargada = cargadorTextura.load("../imgs/1031.png");
 
 		var modeloNota = new THREE.Mesh(
-			new THREE.BoxGeometry(2, 2, 0.01),
-			new THREE.MeshLambertMaterial({color: 0xe60026, map:this.texturaCargada})
+			new THREE.BoxGeometry(4, 4, 0.01),
+			new THREE.MeshLambertMaterial({color: 0xffffff, map:this.texturaCargada})
 		);
-
-		modeloNota.rotateX(-Math.PI);
 
 		var nota = new ObjetoRecogible(modeloNota, funcionCombinacion, combinacionInventario, juego);
 
@@ -514,7 +512,9 @@ Nivel = function(juego)
 		trueCama.rotation.y = Math.PI/2;
 
 		var nota = crearCombinacion(combinacionInventario);
-		
+		nota.position.y = -10;
+		nota.position.z = 10;
+		nota.rotateX(-Math.PI/2);
 
 		trueCama.insertarSubobjeto(nota);
 
@@ -540,10 +540,10 @@ Nivel = function(juego)
 		objetos.add(crearPuerta(llaveInventario));
 
 		//Cama
-		objetos.add(crearCama());
+		objetos.add(crearCama(combinacionInventario));
 
 		// Escritorio
-		crearEscritorio(objetos, llaveInventario);
+		crearEscritorio(objetos, llaveInventario, combinacionInventario);
 
 		return objetos;
 	};
