@@ -14,8 +14,8 @@ Nivel = function(juego)
 	var crearLuces = function(self)
 	{
 		ambientLight = new THREE.AmbientLight(0x161616);
-		luz = new THREE.PointLight(0xffffff, 0, 400, 1);
-		luz.position.set(50, 50, 50);
+		luz = new THREE.PointLight(0xffffff, 0.1, 400, 1);
+		luz.position.set(50, 45, 30);
 		self.add(ambientLight);
 		self.add(luz);
 	};
@@ -38,93 +38,91 @@ Nivel = function(juego)
 		return decoracion;
 	};
 
+	/** Funciones de los objetos interactuables */
+	var crearInterruptor = function()
+	{
+		var encendido = false;
+		var funcionInterruptor = function(objeto, modo, objetoSeleccionado)
+		{
+			if (!encendido)
+			{
+				// Encender la luz y terminar tutorial
+				luz.intensity = 1;
+				objeto.juego.terminarTutorial();
+				encendido = true;
+			}
+		}
+
+		var pulsadorInterruptor = new THREE.Mesh(new THREE.BoxGeometry(10, 10, 2),
+											   new THREE.MeshLambertMaterial({color: 0xd1d1d1}));
+		var luzInterruptor = new THREE.Mesh(new THREE.BoxGeometry(4, 1, 2),
+											new THREE.MeshLambertMaterial({color: 0x000000, emissive: 0xffaa0d}));
+		luzInterruptor.position.z = 0.1;
+		luzInterruptor.position.y = -3;
+		pulsadorInterruptor.add(luzInterruptor);
+		var interruptor = new ObjetoInteractuable(pulsadorInterruptor, funcionInterruptor, juego);
+		interruptor.rotation.y = Math.PI;
+		interruptor.position.x = 60;
+		interruptor.position.y = 50;
+		interruptor.position.z = 148;
+
+		return interruptor;
+	}
+
+	var crearPuerta = function()
+	{
+		var modeloPuerta = new THREE.Object3D();
+		var parteMovil = new THREE.Mesh(new THREE.BoxGeometry(50, 85, 2),
+										new THREE.MeshLambertMaterial({color: 0x6c4226}));
+		
+		var marco1 = new THREE.Mesh(new THREE.BoxGeometry(5, 85, 2),
+									new THREE.MeshLambertMaterial({color: 0x4f311c}));
+		var marco2 = new THREE.Mesh(new THREE.BoxGeometry(5, 85, 2),
+									new THREE.MeshLambertMaterial({color: 0x4f311c}));
+		var marco3 = new THREE.Mesh(new THREE.BoxGeometry(60, 5, 2),
+									new THREE.MeshLambertMaterial({color: 0x4f311c}));
+		var pomo = new THREE.Mesh(new THREE.CylinderGeometry(3, 3, 2),
+								  new THREE.MeshLambertMaterial({color: 0xcca00b}));
+
+		marco1.position.x = 50/2 + 5/2;
+		marco2.position.x = -(50/2 + 5/2);
+		marco3.position.y = 85/2 + 5/2;
+
+		pomo.rotation.x = Math.PI / 2;
+		pomo.position.x = 20;
+		pomo.position.z = 1;
+
+		modeloPuerta.add(parteMovil);
+		parteMovil.add(pomo);
+		modeloPuerta.add(marco1);
+		modeloPuerta.add(marco2);
+		modeloPuerta.add(marco3);
+
+		var funcionPuerta = function(objeto, modo, objetoSeleccionado)
+		{
+
+		}
+		
+		var puerta = new ObjetoInteractuable(modeloPuerta, funcionPuerta, juego);
+		puerta.rotation.y = Math.PI;
+		puerta.position.x = 100;
+		puerta.position.y = 85/2;
+		puerta.position.z = 148;
+
+		return puerta;
+	}
+
 	/** Crear los objetos interactuables */
 	var crearObjetos = function()
 	{
 		var objetos = new THREE.Object3D();
 
-		// Cubo
-		var modeloCubo = new THREE.Mesh(new THREE.BoxGeometry(5, 5, 5),
-										new THREE.MeshLambertMaterial({color: 0xaa0000}));
-		var funcionCubo = function(a, b, c)
-		{
-			if (b == Juego.Modo.TUTORIAL)
-			{
-				a.juego.terminarTutorial();
-				a.juego.iniciarDialogo(["Tutorial"]);
-			}
-			else
-			a.juego.iniciarDialogo([
-				"Es un cubo de color rojo.",
-				"Puede que me sirva para algo, será mejor que lo guarde."
-			]);
-		};
-		var objetoCubo = new ObjetoInventario("Cubo", "imgs/inventario/test.png");
-		var cubo = new ObjetoRecogible(modeloCubo, funcionCubo, objetoCubo, juego);
-		cubo.translateY(40);
-		cubo.translateZ(-30);
-		cubo.translateX(-10);
-		objetos.add(cubo);
+		// Interruptor de la luz
+		objetos.add(crearInterruptor());
 
-		// Esfera
-		var modeloEsfera = new THREE.Mesh(new THREE.SphereGeometry(5, 32, 32),
-										  new THREE.MeshLambertMaterial({color: 0x0000aa}));
-		var funcionEsfera = function(a, b, c)
-		{
-			a.juego.iniciarDialogo([
-				"Es una esfera de color azul."
-			]);
-		};
-		var puntoEsfera = new THREE.Object3D();
-		puntoEsfera.rotateY(90 * (Math.PI/180));
-		puntoEsfera.translateZ(30);
-		puntoEsfera.updateMatrix();
-		var esfera = new ObjetoExaminable(modeloEsfera, funcionEsfera, puntoEsfera, juego);
-		esfera.translateY(40);
-		esfera.translateZ(-30);
-		esfera.translateX(10);
-		objetos.add(esfera);
+		// Puerta
+		objetos.add(crearPuerta());
 
-		// Subcubo
-		var modeloCubo = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3),
-										new THREE.MeshLambertMaterial({color: 0x00aa00}));
-		var funcionCubo = function(a, b, c)
-		{
-			a.juego.iniciarDialogo([
-				"Es un pequeño cubo de color verde que estaba detrás de la esfera.",
-				"Me lo llevo, por si acaso sirve para algo más adelante."
-			]);
-		};
-		var objetoCubo = new ObjetoInventario("Subcubo", "imgs/inventario/test2.png");
-		var cubo = new ObjetoRecogible(modeloCubo, funcionCubo, objetoCubo, juego);
-		cubo.translateZ(-7);
-		esfera.insertarSubobjeto(cubo);
-
-		var modeloCama;
-		var cargadorMTL = new THREE.MTLLoader();
-		cargadorMTL.setPath("models/Desk/");
-		cargadorMTL.load("Desk.mtl", function(material)
-		{
-			material.preload();
-			
-			var cargadorObjetos = new THREE.OBJLoader();
-			cargadorObjetos.setMaterials(material);
-			cargadorObjetos.setPath("models/Desk/");
-			cargadorObjetos.load("Desk.obj", function(objeto)
-			{
-				modeloCama = objeto;
-				//objeto.material = new THREE.MeshLambertMaterial({color: 0x00aa00});
-				//objeto.material.needsUpdate = true;
-
-				modeloCama.scale.set(18, 18, 18);
-				//modeloCama.updateMatrix();
-				modeloCama.translateX(100);
-				modeloCama.rotateY(-90 * Math.PI/180);
-
-				objetos.add(modeloCama);
-			});
-		});
-		
 		return objetos;
 	};
 
