@@ -293,6 +293,49 @@ Nivel = function(juego)
 		return cajaFuerte;
 	}
 
+	var crearLlave = function()
+	{
+		var funcionLlave = function(objeto, modo, objetoSeleccionado)
+		{
+
+		}
+
+		var anillo = new THREE.Mesh(
+			new THREE.TorusGeometry(1, 0.4, 8, 10),
+			new THREE.MeshLambertMaterial({color: 0xf2e437})
+		);
+		var tubo = new THREE.Mesh(
+			new THREE.CylinderGeometry(0.4, 0.4, 4),
+			new THREE.MeshLambertMaterial({color: 0xf2e437})
+		);
+		var diente1 = new THREE.Mesh(
+			new THREE.CylinderGeometry(0.4, 0.4, 0.5),
+			new THREE.MeshLambertMaterial({color: 0xf2e437})
+		);
+		var diente2 = new THREE.Mesh(
+			new THREE.CylinderGeometry(0.4, 0.4, 0.4),
+			new THREE.MeshLambertMaterial({color: 0xf2e437})
+		);
+
+		tubo.rotation.z = Math.PI / 2;
+		tubo.position.x = 3.2;
+
+		diente1.position.y = -0.45;
+		diente1.position.x = 4.6;
+		diente2.position.y = -0.4;
+		diente2.position.x = 3.8;
+
+		anillo.add(tubo);
+		anillo.add(diente1);
+		anillo.add(diente2);
+
+		var llave = new ObjetoRecogible(anillo, funcionLlave, null, juego);
+		llave.position.y = 50;
+		llave.position.z = -20;
+
+		return llave;
+	}
+
 	var crearEscritorio = function(objetos)
 	{
 		var funcionEscritorio = function(objeto, modo, objetoSeleccionado)
@@ -344,6 +387,13 @@ Nivel = function(juego)
 				cajaFuerte.position.y = 50;
 				cajaFuerte.position.z = 30;
 				escritorio.insertarSubobjeto(cajaFuerte);
+
+				var llave = crearLlave();
+				llave.rotateY(-Math.PI/2);
+				llave.position.x = 20;
+				llave.position.y = 43.5;
+				llave.position.z = 30;
+				escritorio.insertarSubobjeto(llave);
 
 				objetos.add(escritorio);
 			});
