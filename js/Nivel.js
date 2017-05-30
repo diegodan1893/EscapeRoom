@@ -416,6 +416,29 @@ Nivel = function(juego)
 		});
 	}
 
+	var crearCombinacion = function(combinacionInventario)
+	{
+		var funcionCombinacion = function(objeto, modo, objetoSeleccionado)
+		{
+
+		}
+
+		var cargadorTextura = new THREE.TextureLoader();
+		this.texturaCargada = cargadorTextura.load("../imgs/1031.jpg");
+
+		var modeloNota = new THREE.Mesh(
+			new THREE.BoxGeometry(2, 2, 0.01),
+			new THREE.MeshLambertMaterial({color: 0xe60026, map:this.texturaCargada})
+		);
+
+		modeloNota.rotateX(-Math.PI);
+
+		var nota = new ObjetoRecogible(modeloNota, funcionCombinacion, combinacionInventario, juego);
+
+		return nota;
+	}
+
+
 	var crearCama = function(combinacionInventario)
 	{
 		var modeloCama = new THREE.Object3D();
@@ -497,6 +520,10 @@ Nivel = function(juego)
 		trueCama.position.y = 10;
 		trueCama.rotation.y = Math.PI/2;
 
+		var nota = crearCombinacion(combinacionInventario);
+		
+
+		trueCama.insertarSubobjeto(nota);
 
 		return trueCama;
 	}
