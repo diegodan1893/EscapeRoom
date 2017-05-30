@@ -107,7 +107,7 @@ Nivel = function(juego)
 												})
 											   );
 		var puntoCamara = new THREE.Object3D();
-				puntoCamara.position.z = 50;
+		puntoCamara.position.z = 50;
 
 
 		var poster = new ObjetoExaminable(elPoster, funcionPoster, puntoCamara, juego);
@@ -350,6 +350,84 @@ Nivel = function(juego)
 		});
 	}
 
+	var crearCama = function()
+	{
+		var modeloCama = new THREE.Object3D();
+
+		// 25 20 10
+		var cama = new THREE.Mesh(new THREE.BoxGeometry(100, 10, 40),
+								   new THREE.MeshLambertMaterial({color: 0xcfcfcf}));
+		var pataIzqCerca = new THREE.Mesh(new THREE.BoxGeometry(5, 20, 5),
+									  new THREE.MeshLambertMaterial({color: 0xcfcfcf}));
+		var pataDchaCerca = new THREE.Mesh(new THREE.BoxGeometry(5, 20, 5),
+									  new THREE.MeshLambertMaterial({color: 0xcfcfcf}));
+		var pataIzqLejos = new THREE.Mesh(new THREE.BoxGeometry(5, 20, 5),
+								   new THREE.MeshLambertMaterial({color: 0xcfcfcf}));
+		var pataDchaLejos = new THREE.Mesh(new THREE.BoxGeometry(5, 20, 5),
+								   new THREE.MeshLambertMaterial({color: 0xcfcfcf}));
+					
+		var almohada = new THREE.Mesh(new THREE.BoxGeometry(7, 4, 20),
+								  		  new THREE.MeshLambertMaterial({color: 0xe9e9e9}));
+
+		cama.position.y = 10;
+		
+		pataIzqCerca.position.x = 40;
+		pataIzqCerca.position.z = 15;
+
+		pataDchaCerca.position.x = 40;
+		pataDchaCerca.position.z = -15;
+
+		pataIzqLejos.position.x = -40;
+		pataIzqLejos.position.z = 15;
+
+		pataDchaLejos.position.x = -40;
+		pataDchaLejos.position.z = -15;
+
+		almohada.position.y = 15;
+		almohada.position.x = -45;
+		
+		
+
+		modeloCama.add(cama);
+		modeloCama.add(pataIzqCerca);
+		modeloCama.add(pataDchaCerca);
+		modeloCama.add(pataIzqLejos);
+		modeloCama.add(pataDchaLejos);
+		modeloCama.add(almohada);
+
+		
+		var funcionCama = function(objeto, modo, objetoSeleccionado)
+		{
+			if(modo !== Juego.Modo.TUTORIAL)
+			{	
+				objeto.juego.iniciarDialogo([
+					"Es una cama. O mejor dicho, se parece a una cama.",
+					"Tengo la sensación de que si me tumbo me romperé cuatro costillas."
+				]);
+					
+			}else{
+				objeto.juego.iniciarDialogo([
+					"Desde luego, las condiciones son las óptimas para tumbarme.",
+					"Pero ya he dormido suficiente, gracias."			
+				]);
+			}
+
+		}
+
+		var puntoCamara = new THREE.Object3D();
+		puntoCamara.position.z = 50;
+
+
+		var trueCama = new ObjetoExaminable(modeloCama, funcionCama, puntoCamara, juego);
+
+		trueCama.position.x = -90;
+		trueCama.position.y = 10;
+		trueCama.rotation.y = Math.PI/2;
+
+
+		return trueCama;
+	}
+
 	/** Crear los objetos interactuables */
 	var crearObjetos = function()
 	{
@@ -363,6 +441,9 @@ Nivel = function(juego)
 
 		// Puerta
 		objetos.add(crearPuerta());
+
+		//Cama
+		objetos.add(crearCama());
 
 		// Escritorio
 		crearEscritorio(objetos);
