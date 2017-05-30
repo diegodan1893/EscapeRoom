@@ -279,10 +279,17 @@ Nivel = function(juego)
 			}
 			else
 			{
-				objeto.juego.iniciarDialogo([
-					"Es una caja fuerte. Hace falta una combinación para abrirla.",
-					"O también podemos optar por mucha dinamita."
-				]);
+				if(!abierta){
+					objeto.juego.iniciarDialogo([
+						"Es una caja fuerte. Hace falta una combinación para abrirla.",
+						"O también podemos optar por mucha dinamita."
+					]);
+				}else{
+					objeto.juego.iniciarDialogo([
+					"La caja fuerte ha sido abrida.",
+					"Me ha apetecido hablar en conjugación no válida."
+					]);
+				}
 			}
 
 			return tirar;
