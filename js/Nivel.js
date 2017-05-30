@@ -211,20 +211,27 @@ Nivel = function(juego)
 		puerta.translateX(-23/2);
 		puerta.translateZ(3);
 		
+		var abierta = false;
 		var funcionCaja = function(objeto, modo, objetoSeleccionado)
 		{
-			if(objeto.objetoActivacion === objetoSeleccionado){
+			var tirar = false;
+			if(objeto.objetoActivacion === objetoSeleccionado)
+			{
 				objeto.juego.iniciarDialogo([
 					"He introducido la combinación de la caja fuerte.",
 					"En vista de que no hay papelera, tiraré la combinación al limbo gráfico."
 				]);
-				//Se pierde la combinación
-			}else{
+				tirar = true;
+			}
+			else
+			{
 				objeto.juego.iniciarDialogo([
 					"Es una caja fuerte. Hace falta una combinación para abrirla.",
 					"O también podemos optar por mucha dinamita."
 				]);
 			}
+
+			return tirar;
 		}
 
 		var cajaFuerte = new ObjetoInteractuable(modeloCaja, funcionCaja, juego);
