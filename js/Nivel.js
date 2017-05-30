@@ -104,9 +104,40 @@ Nivel = function(juego)
 
 		parteMovil.translateX(-50/2);
 
+		var abierta = false;
+
 		var funcionPuerta = function(objeto, modo, objetoSeleccionado)
 		{
-			
+
+			if(modo !== Juego.Modo.TUTORIAL){
+
+				//Suponiendo que hemos conseguido la llave
+				if(!abierta){
+					abierta = true;
+					var rotacionInicial = {angulo: 0};
+					var rotacionFinal = {angulo:- Math.PI/2};
+					var astro = this.esfera;
+
+					this.interpolador = new TWEEN.Tween(rotacionInicial).to(rotacionFinal, 500)
+						.onUpdate(function(){
+							parteMovil.rotation.y = rotacionInicial.angulo;
+						})
+						.start()
+
+					objeto.juego.iniciarDialogo([
+					"Tú: ¿¡CÓMO!?",
+					"Tú: ¡PERO DETRÁS DE LA PUERTA HAY MÁS PARED!",
+					"Tú: ¿Cómo quieren que salga de algo que no tiene salida?",
+					"Y te moriste FIN."
+				]);
+
+				}
+
+			}else{
+				objeto.juego.iniciarDialogo([
+					"Huy... ¡Casi! Las puertas no encienden la luz, pero oye, tú a tu ritmo."
+				]);
+			}
 		}
 		
 		var puerta = new ObjetoInteractuable(modeloPuerta, funcionPuerta, juego);
@@ -122,7 +153,20 @@ Nivel = function(juego)
 	{
 		var funcionEscritorio = function(objeto, modo, objetoSeleccionado)
 		{
+			if(modo !== Juego.Modo.TUTORIAL){
+				objeto.juego.iniciarDialogo([
+					"Es un escritorio. Tiene una caja fuerte y cajones que no se abren.",
+					"No se abren porque están cerrados con la llave de la falta de tiempo."
+				]);
 
+			}else{
+				objeto.juego.iniciarDialogo([
+					"Eso es un escritorio, no un interruptor.",
+					"Ya sé que no debería ver nada porque está oscuro, pero yo lo veo perfectamente.",
+					"Quizás debería usar el escritorio como fuente de luz.",
+					"Es broma."
+				]);
+			}
 		}
 
 		var cargadorMTL = new THREE.MTLLoader();
