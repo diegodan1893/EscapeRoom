@@ -133,7 +133,7 @@ Juego = function(renderer)
 						var quitar = objeto.userData.objetoInteractuable.interactuar(modoActual, inventario.obtenerSeleccionado());
 
 						if (quitar)
-							eliminarObjeto(inventario.obtenerSeleccionado());
+							inventario.eliminarObjeto(inventario.obtenerSeleccionado());
 					}
 				}
 			}
