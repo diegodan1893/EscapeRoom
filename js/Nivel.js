@@ -118,11 +118,30 @@ Nivel = function(juego)
 		return puerta;
 	}
 
+	var crearCajaFuerte = function()
+	{
+		var modeloCaja = new THREE.Object3D();
+		var parteMovil = new THREE.Object3D();
+		var caja = new THREE.Mesh(new THREE.BoxGeometry(25, 20, 15),
+								  new THREE.MeshLambertMaterial({color: 0xcfcfcf}));
+
+		
+		
+		var funcionCaja = function()
+		{
+
+		}
+
+		var cajaFuerte = new ObjetoInteractuable(caja, funcionCaja, juego);
+
+		return cajaFuerte;
+	}
+
 	var crearEscritorio = function(objetos)
 	{
 		var funcionEscritorio = function(objeto, modo, objetoSeleccionado)
 		{
-
+			objeto.juego.iniciarDialogo(["Hola"]);
 		}
 
 		var cargadorMTL = new THREE.MTLLoader();
@@ -149,6 +168,13 @@ Nivel = function(juego)
 				var escritorio = new ObjetoExaminable(modeloEscritorio, funcionEscritorio, puntoCamara, juego);
 				escritorio.position.x = 100;
 				escritorio.position.z = -100;
+				
+				var cajaFuerte = crearCajaFuerte();
+				cajaFuerte.rotation.y = -Math.PI/2;
+				cajaFuerte.position.x = 20;
+				cajaFuerte.position.y = 50;
+				cajaFuerte.position.z = 30;
+				escritorio.insertarSubobjeto(cajaFuerte);
 
 				objetos.add(escritorio);
 			});
