@@ -118,7 +118,7 @@ $(function(){
 		"Tú: ¿Se puede saber en qué clase de habitación mal diseñada estoy?",
 		"Tras una noche de desenfreno y borrachera (con Nestea), he aparecido aquí.",
 		"Estoy seguro de que si investigo encontraré la forma de salir... ",
-		"No obstante, esto está muy oscuro para ver nada. Me pregunto si habrá alguna forma de encender las luces...",
+		"No obstante, esto está muy oscuro como para ver nada. Me pregunto si habrá alguna forma de encender las luces...",
 		"(SARCASMO)"
 	]);
 });
