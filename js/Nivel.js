@@ -119,7 +119,7 @@ Nivel = function(juego)
 		return poster;
 	}
 
-	var crearPuerta = function()
+	var crearPuerta = function(llaveInventario)
 	{
 		var modeloPuerta = new THREE.Object3D();
 		var parteMovil = new THREE.Object3D();
@@ -200,7 +200,7 @@ Nivel = function(juego)
 			}
 		}
 		
-		var puerta = new ObjetoInteractuable(modeloPuerta, funcionPuerta, juego);
+		var puerta = new ObjetoInteractuable(modeloPuerta, funcionPuerta, juego, llaveInventario);
 		puerta.rotation.y = Math.PI;
 		puerta.position.x = 100;
 		puerta.position.y = 85/2;
@@ -293,7 +293,7 @@ Nivel = function(juego)
 		return cajaFuerte;
 	}
 
-	var crearLlave = function()
+	var crearLlave = function(llaveInventario)
 	{
 		var funcionLlave = function(objeto, modo, objetoSeleccionado)
 		{
@@ -329,14 +329,12 @@ Nivel = function(juego)
 		anillo.add(diente1);
 		anillo.add(diente2);
 
-		var llave = new ObjetoRecogible(anillo, funcionLlave, null, juego);
-		llave.position.y = 50;
-		llave.position.z = -20;
+		var llave = new ObjetoRecogible(anillo, funcionLlave, llaveInventario, juego);
 
 		return llave;
 	}
 
-	var crearEscritorio = function(objetos)
+	var crearEscritorio = function(objetos, llaveInventario)
 	{
 		var funcionEscritorio = function(objeto, modo, objetoSeleccionado)
 		{
@@ -388,7 +386,7 @@ Nivel = function(juego)
 				cajaFuerte.position.z = 30;
 				escritorio.insertarSubobjeto(cajaFuerte);
 
-				var llave = crearLlave();
+				var llave = crearLlave(llaveInventario);
 				llave.rotateY(-Math.PI/2);
 				llave.position.x = 20;
 				llave.position.y = 43.5;
@@ -483,6 +481,9 @@ Nivel = function(juego)
 	{
 		var objetos = new THREE.Object3D();
 
+		// Objetos inventario
+		var llaveInventario = new ObjetoInventario("Llave", "imgs/inventario/llave.png");
+
 		// Interruptor de la luz
 		objetos.add(crearInterruptor());
 
@@ -490,13 +491,13 @@ Nivel = function(juego)
 		objetos.add(crearPoster());
 
 		// Puerta
-		objetos.add(crearPuerta());
+		objetos.add(crearPuerta(llaveInventario));
 
 		//Cama
 		objetos.add(crearCama());
 
 		// Escritorio
-		crearEscritorio(objetos);
+		crearEscritorio(objetos, llaveInventario);
 
 		return objetos;
 	};
