@@ -55,7 +55,7 @@ Nivel = function(juego)
 				]);
 			}{
 				objeto.juego.iniciarDialogo([
-					"Aún a riesgo de que haya algún puzle que use pintura fosforescente, la luz se queda encendida.",
+					"Aun a riesgo de que haya algún puzle que use pintura fosforescente, la luz se queda encendida.",
 					"JAJAJAJAJA. Pintura fosforescente. Como si los desarrolladores supieran hacer eso..."
 				]);
 			}
@@ -213,11 +213,45 @@ Nivel = function(juego)
 	var crearCajaFuerte = function()
 	{
 		var modeloCaja = new THREE.Object3D();
-		var parteMovil = new THREE.Object3D();
-		var caja = new THREE.Mesh(new THREE.BoxGeometry(25, 20, 15),
-								  new THREE.MeshLambertMaterial({color: 0xcfcfcf}));
+		var puerta = new THREE.Object3D();
+		// 25 20 10
+		var fondo = new THREE.Mesh(new THREE.BoxGeometry(25, 20, 2),
+								   new THREE.MeshLambertMaterial({color: 0xcfcfcf}));
+		var paredIzq = new THREE.Mesh(new THREE.BoxGeometry(2, 20, 8),
+									  new THREE.MeshLambertMaterial({color: 0xcfcfcf}));
+		var paredDer = new THREE.Mesh(new THREE.BoxGeometry(2, 20, 8),
+									  new THREE.MeshLambertMaterial({color: 0xcfcfcf}));
+		var techo = new THREE.Mesh(new THREE.BoxGeometry(25, 2, 8),
+								   new THREE.MeshLambertMaterial({color: 0xcfcfcf}));
+		var suelo = new THREE.Mesh(new THREE.BoxGeometry(25, 2, 8),
+								   new THREE.MeshLambertMaterial({color: 0xcfcfcf}));
+		var modeloPuerta = new THREE.Mesh(new THREE.BoxGeometry(21, 16, 2),
+								  		  new THREE.MeshLambertMaterial({color: 0xe9e9e9}));
+		var dial = new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 1),
+								  new THREE.MeshLambertMaterial({color: 0x5c5c5c}));
 
-		
+		fondo.position.z = -10/2 + 1;
+		paredIzq.position.x = -25/2 + 1;
+		paredDer.position.x = 25/2 - 1;
+		techo.position.y = 20/2 - 1;
+		suelo.position.y = -20/2 + 1;
+		modeloPuerta.position.x = 23/2;
+		dial.position.x = 7;
+		dial.position.z = 1;
+		dial.rotation.x = Math.PI/2;
+
+		modeloPuerta.add(dial);
+		puerta.add(modeloPuerta);
+
+		modeloCaja.add(fondo);
+		modeloCaja.add(paredIzq);
+		modeloCaja.add(paredDer);
+		modeloCaja.add(techo);
+		modeloCaja.add(suelo);
+		modeloCaja.add(puerta);
+
+		puerta.translateX(-23/2);
+		puerta.translateZ(3);
 		
 		var funcionCaja = function(objeto, modo, objetoSeleccionado)
 		{
@@ -235,7 +269,7 @@ Nivel = function(juego)
 			}
 		}
 
-		var cajaFuerte = new ObjetoInteractuable(caja, funcionCaja, juego);
+		var cajaFuerte = new ObjetoInteractuable(modeloCaja, funcionCaja, juego);
 
 		return cajaFuerte;
 	}
