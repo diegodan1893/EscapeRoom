@@ -209,7 +209,7 @@ Nivel = function(juego)
 		return puerta;
 	}
 
-	var crearCajaFuerte = function()
+	var crearCajaFuerte = function(combinacionInventario)
 	{
 		var modeloCaja = new THREE.Object3D();
 		var puerta = new THREE.Object3D();
@@ -288,7 +288,7 @@ Nivel = function(juego)
 			return tirar;
 		}
 
-		var cajaFuerte = new ObjetoInteractuable(modeloCaja, funcionCaja, juego);
+		var cajaFuerte = new ObjetoInteractuable(modeloCaja, funcionCaja, juego, combinacionInventario);
 
 		return cajaFuerte;
 	}
@@ -347,12 +347,13 @@ Nivel = function(juego)
 				if(objetoSeleccionado === llaveInventario){
 					objeto.juego.iniciarDialogo([
 					"Lo de la llave del tiempo era una metáfora. No se van a abrir."
-				]);
+					]);
+				}else{
+					objeto.juego.iniciarDialogo([
+						"Es un escritorio. Tiene una caja fuerte y cajones que no se abren.",
+						"No se abren porque están cerrados con la llave de la falta de tiempo."
+					]);
 				}
-				objeto.juego.iniciarDialogo([
-					"Es un escritorio. Tiene una caja fuerte y cajones que no se abren.",
-					"No se abren porque están cerrados con la llave de la falta de tiempo."
-				]);
 
 			}else{
 				objeto.juego.iniciarDialogo([
@@ -463,11 +464,12 @@ Nivel = function(juego)
 					"¿Deshacerme de la nota que tanto tiempo he tardado en localizar?",
 					"Po' va a ser que no."
 				]);
+				}else{
+					objeto.juego.iniciarDialogo([
+						"Es una cama. O mejor dicho, se parece a una cama.",
+						"Tengo la sensación de que si me tumbo me romperé cuatro costillas."
+					]);
 				}
-				objeto.juego.iniciarDialogo([
-					"Es una cama. O mejor dicho, se parece a una cama.",
-					"Tengo la sensación de que si me tumbo me romperé cuatro costillas."
-				]);
 					
 			}else{
 				objeto.juego.iniciarDialogo([
