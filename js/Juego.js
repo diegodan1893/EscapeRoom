@@ -411,6 +411,17 @@ Juego = function(renderer)
 	}
 
 	/**
+	 * Inicia un diálogo que finalizará el juego
+	 * 
+	 * @param {Array} Array con las líneas del diálogo
+	 */
+	this.iniciarDialogoFinal = function(texto)
+	{
+		this.iniciarDialogo(texto);
+		modoAnterior = Juego.Modo.FIN;
+	}
+
+	/**
 	 * Avanza el diálogo a la siguiente línea
 	 */
 	this.pasarDialogo = function()
@@ -424,30 +435,37 @@ Juego = function(renderer)
 				// Cambiar al modo anterior
 				modoActual = modoAnterior;
 
-				// Activar la interacción
-				orbitControls.enabled = modoActual == Juego.Modo.INVESTIGANDO || modoActual == Juego.Modo.TUTORIAL;
-				interaccionActivada = true;
-
-				// Ocultar el diálogo
-				$("#oscurecer").fadeOut(400);
-				$("#dialogo").fadeOut(400);
-
-				if (pendienteDeVisualizar === null)
+				if (modoActual === Juego.Modo.FIN)
 				{
-					// Mostrar el botón de salir si es necesario
-					if (modoActual == Juego.Modo.EXAMINANDO)
-						$("#boton-salir-examinar").fadeIn(400);
-					
-					// Mostrar el inventario si es necesario
-					if (!inventario.vacio())
-						$("#inventario").fadeIn(400);
+					this.terminarJuego();
 				}
-
-				// Visualizar objeto pendiente
-				if (pendienteDeVisualizar !== null)
+				else
 				{
-					this.visualizarObjeto(pendienteDeVisualizar.objeto, pendienteDeVisualizar.distancia);
-					pendienteDeVisualizar = null;
+					// Activar la interacción
+					orbitControls.enabled = modoActual == Juego.Modo.INVESTIGANDO || modoActual == Juego.Modo.TUTORIAL;
+					interaccionActivada = true;
+
+					// Ocultar el diálogo
+					$("#oscurecer").fadeOut(400);
+					$("#dialogo").fadeOut(400);
+
+					if (pendienteDeVisualizar === null)
+					{
+						// Mostrar el botón de salir si es necesario
+						if (modoActual == Juego.Modo.EXAMINANDO)
+							$("#boton-salir-examinar").fadeIn(400);
+						
+						// Mostrar el inventario si es necesario
+						if (!inventario.vacio())
+							$("#inventario").fadeIn(400);
+					}
+
+					// Visualizar objeto pendiente
+					if (pendienteDeVisualizar !== null)
+					{
+						this.visualizarObjeto(pendienteDeVisualizar.objeto, pendienteDeVisualizar.distancia);
+						pendienteDeVisualizar = null;
+					}
 				}
 			}
 			else
@@ -455,6 +473,14 @@ Juego = function(renderer)
 				document.getElementById("texto-dialogo").innerHTML = dialogo.linea();
 			}
 		}
+	}
+
+	/**
+	 * Muestra una pantalla de fin
+	 */
+	this.terminarJuego = function()
+	{
+		$("#fin").fadeIn(400);
 	}
 
 	/**
@@ -484,5 +510,6 @@ Juego.Modo = {
 	INVESTIGANDO : 0,
 	EXAMINANDO : 1,
 	DIALOGO : 2,
-	TUTORIAL : 3
+	TUTORIAL : 3,
+	FIN : 4
 }

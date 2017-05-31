@@ -174,7 +174,7 @@ Nivel = function(juego)
 							})
 							.start()
 
-						objeto.juego.iniciarDialogo([
+						objeto.juego.iniciarDialogoFinal([
 						"Tú: ¿¡CÓMO!?",
 						"Tú: ¡PERO DETRÁS DE LA PUERTA HAY MÁS PARED!",
 						"Tú: ¿Cómo quieren que salga de algo que no tiene salida?",
