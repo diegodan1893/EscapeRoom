@@ -420,7 +420,11 @@ Nivel = function(juego)
 	{
 		var funcionCombinacion = function(objeto, modo, objetoSeleccionado)
 		{
-
+			objeto.juego.iniciarDialogo([
+				"Es una nota con los números '1031' escritos en ella.",
+				"Me pregunto para qué me podrá servir...",
+				"SARCASMO: THE RETURN."
+			]);
 		}
 
 		var cargadorTextura = new THREE.TextureLoader();
