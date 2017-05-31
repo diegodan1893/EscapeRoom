@@ -99,7 +99,7 @@ Nivel = function(juego)
 		}
 
 		var cargadorTextura = new THREE.TextureLoader();
-		this.texturaCargada = cargadorTextura.load("../imgs/fondo.jpg");
+		this.texturaCargada = cargadorTextura.load("imgs/fondo.jpg");
 
 		var elPoster = new THREE.Mesh(new THREE.BoxGeometry(70, 45, 0.5),
 											   new THREE.MeshLambertMaterial({color: 0xd1d1d1, 
@@ -428,7 +428,7 @@ Nivel = function(juego)
 		}
 
 		var cargadorTextura = new THREE.TextureLoader();
-		this.texturaCargada = cargadorTextura.load("../imgs/1031.png");
+		this.texturaCargada = cargadorTextura.load("imgs/1031.png");
 
 		var modeloNota = new THREE.Mesh(
 			new THREE.BoxGeometry(4, 4, 0.01),
