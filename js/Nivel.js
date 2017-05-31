@@ -346,7 +346,7 @@ Nivel = function(juego)
 		return llave;
 	}
 
-	var crearEscritorio = function(objetos, llaveInventario)
+	var crearEscritorio = function(objetos, llaveInventario, combinacionInventario)
 	{
 		var funcionEscritorio = function(objeto, modo, objetoSeleccionado)
 		{
@@ -397,7 +397,7 @@ Nivel = function(juego)
 				escritorio.position.x = 100;
 				escritorio.position.z = -100;
 				
-				var cajaFuerte = crearCajaFuerte();
+				var cajaFuerte = crearCajaFuerte(combinacionInventario);
 				cajaFuerte.rotation.y = -Math.PI/2;
 				cajaFuerte.position.x = 20;
 				cajaFuerte.position.y = 50;
@@ -520,7 +520,7 @@ Nivel = function(juego)
 
 		var nota = crearCombinacion(combinacionInventario);
 		nota.position.y = -10;
-		nota.position.z = 10;
+		nota.position.z = -10;
 		nota.rotateX(-Math.PI/2);
 
 		trueCama.insertarSubobjeto(nota);
